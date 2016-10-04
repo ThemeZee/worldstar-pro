@@ -5,13 +5,13 @@
  * Display the latest posts from a selected category in a list layout.
  * Intented to be used in the Magazine Homepage widget area to built a magazine layouted page.
  *
- * @package Gambit
+ * @package WorldStar
  */
 
 /**
  * Magazine Widget Class
  */
-class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
+class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 	/**
 	 * Widget Constructor
@@ -20,11 +20,11 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		// Setup Widget.
 		parent::__construct(
-			'gambit-magazine-posts-list', // ID.
-			sprintf( esc_html__( 'Magazine Posts: List (%s)', 'gambit-pro' ), 'Gambit Pro' ), // Name.
+			'worldstar-magazine-posts-list', // ID.
+			sprintf( esc_html__( 'Magazine Posts: List (%s)', 'worldstar-pro' ), 'WorldStar Pro' ), // Name.
 			array(
-				'classname' => 'gambit_magazine_posts_list',
-				'description' => esc_html__( 'Displays your posts from a selected category in a simple list layout. Please use this widget ONLY in the Magazine Homepage widget area.', 'gambit-pro' ),
+				'classname' => 'worldstar_magazine_posts_list',
+				'description' => esc_html__( 'Displays your posts from a selected category in a simple list layout. Please use this widget ONLY in the Magazine Homepage widget area.', 'worldstar-pro' ),
 				'customize_selective_refresh' => true,
 			) // Args.
 		);
@@ -68,7 +68,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		// Get Widget Object Cache.
 		if ( ! $this->is_preview() ) {
-			$cache = wp_cache_get( 'widget_gambit_magazine_posts_list', 'widget' );
+			$cache = wp_cache_get( 'widget_worldstar_magazine_posts_list', 'widget' );
 		}
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
@@ -108,7 +108,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		// Set Cache.
 		if ( ! $this->is_preview() ) {
 			$cache[ $this->id ] = ob_get_flush();
-			wp_cache_set( 'widget_gambit_magazine_posts_list', $cache, 'widget' );
+			wp_cache_set( 'widget_worldstar_magazine_posts_list', $cache, 'widget' );
 		} else {
 			ob_end_flush();
 		}
@@ -140,7 +140,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		if ( $posts_query->have_posts() ) :
 
 			// Limit the number of words for the excerpt.
-			add_filter( 'excerpt_length', 'gambit_magazine_posts_excerpt_length' );
+			add_filter( 'excerpt_length', 'worldstar_magazine_posts_excerpt_length' );
 
 			// Display Posts.
 			while ( $posts_query->have_posts() ) : $posts_query->the_post(); ?>
@@ -148,7 +148,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
 
 					<a href="<?php esc_url( the_permalink() ); ?>" rel="bookmark">
-						<?php the_post_thumbnail( 'gambit-thumbnail-archive' ); ?>
+						<?php the_post_thumbnail( 'worldstar-thumbnail-archive' ); ?>
 					</a>
 
 					<header class="entry-header">
@@ -162,7 +162,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 					<div class="entry-content clearfix">
 
 						<?php the_excerpt(); ?>
-						<?php gambit_more_link(); ?>
+						<?php worldstar_more_link(); ?>
 
 					</div><!-- .entry-content -->
 
@@ -172,7 +172,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			endwhile;
 
 			// Remove excerpt filter.
-			remove_filter( 'excerpt_length', 'gambit_magazine_posts_excerpt_length' );
+			remove_filter( 'excerpt_length', 'worldstar_magazine_posts_excerpt_length' );
 
 		endif;
 
@@ -192,19 +192,19 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		if ( true === $settings['meta_date'] ) {
 
-			$postmeta .= gambit_meta_date();
+			$postmeta .= worldstar_meta_date();
 
 		}
 
 		if ( true === $settings['meta_author'] ) {
 
-			$postmeta .= gambit_meta_author();
+			$postmeta .= worldstar_meta_author();
 
 		}
 
 		if ( true === $settings['meta_category'] ) {
 
-			$postmeta .= gambit_meta_category();
+			$postmeta .= worldstar_meta_category();
 
 		}
 
@@ -234,7 +234,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			if ( $settings['category'] > 0 ) :
 
 				// Set Link URL and Title for Category.
-				$link_title = sprintf( esc_html__( 'View all posts from category %s', 'gambit-pro' ), get_cat_name( $settings['category'] ) );
+				$link_title = sprintf( esc_html__( 'View all posts from category %s', 'worldstar-pro' ), get_cat_name( $settings['category'] ) );
 				$link_url = esc_url( get_category_link( $settings['category'] ) );
 
 				// Display Widget Title with link to category archive.
@@ -288,16 +288,16 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'gambit-pro' ); ?>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'worldstar-pro' ); ?>
 				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $settings['title']; ?>" />
 			</label>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php esc_html_e( 'Category:', 'gambit-pro' ); ?></label><br/>
+			<label for="<?php echo $this->get_field_id( 'category' ); ?>"><?php esc_html_e( 'Category:', 'worldstar-pro' ); ?></label><br/>
 			<?php // Display Category Select.
 				$args = array(
-					'show_option_all'    => esc_html__( 'All Categories', 'gambit-pro' ),
+					'show_option_all'    => esc_html__( 'All Categories', 'worldstar-pro' ),
 					'show_count' 		 => true,
 					'hide_empty'		 => false,
 					'selected'           => $settings['category'],
@@ -309,7 +309,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of posts:', 'gambit-pro' ); ?>
+			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of posts:', 'worldstar-pro' ); ?>
 				<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $settings['number']; ?>" size="3" />
 			</label>
 		</p>
@@ -317,21 +317,21 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'meta_date' ); ?>">
 				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_date'] ); ?> id="<?php echo $this->get_field_id( 'meta_date' ); ?>" name="<?php echo $this->get_field_name( 'meta_date' ); ?>" />
-				<?php esc_html_e( 'Display post date', 'gambit-pro' ); ?>
+				<?php esc_html_e( 'Display post date', 'worldstar-pro' ); ?>
 			</label>
 		</p>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'meta_author' ); ?>">
 				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_author'] ); ?> id="<?php echo $this->get_field_id( 'meta_author' ); ?>" name="<?php echo $this->get_field_name( 'meta_author' ); ?>" />
-				<?php esc_html_e( 'Display post author', 'gambit-pro' ); ?>
+				<?php esc_html_e( 'Display post author', 'worldstar-pro' ); ?>
 			</label>
 		</p>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'meta_category' ); ?>">
 				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_category'] ); ?> id="<?php echo $this->get_field_id( 'meta_category' ); ?>" name="<?php echo $this->get_field_name( 'meta_category' ); ?>" />
-				<?php esc_html_e( 'Display post category', 'gambit-pro' ); ?>
+				<?php esc_html_e( 'Display post category', 'worldstar-pro' ); ?>
 			</label>
 		</p>
 
@@ -344,7 +344,7 @@ class Gambit_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 	 */
 	public function delete_widget_cache() {
 
-		wp_cache_delete( 'widget_gambit_magazine_posts_list', 'widget' );
+		wp_cache_delete( 'widget_worldstar_magazine_posts_list', 'widget' );
 
 	}
 }

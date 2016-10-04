@@ -2,9 +2,9 @@
 /**
  * Footer Widgets
  *
- * Registers footer widget areas and hooks into the Gambit theme to display widgets
+ * Registers footer widget areas and hooks into the WorldStar theme to display widgets
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Header Bar Class
  */
-class Gambit_Pro_Header_Bar {
+class WorldStar_Pro_Header_Bar {
 
 	/**
 	 * Footer Widgets Setup
@@ -22,13 +22,13 @@ class Gambit_Pro_Header_Bar {
 	 */
 	static function setup() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		// Display Header Bar.
-		add_action( 'gambit_header_bar', array( __CLASS__, 'display_header_bar' ) );
+		add_action( 'worldstar_header_bar', array( __CLASS__, 'display_header_bar' ) );
 
 	}
 
@@ -93,21 +93,21 @@ class Gambit_Pro_Header_Bar {
 	 */
 	static function register_nav_menus() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		register_nav_menus( array(
-			'secondary' => esc_html__( 'Top Navigation', 'gambit-pro' ),
-			'social' => esc_html__( 'Header Social Icons', 'gambit-pro' ),
+			'secondary' => esc_html__( 'Top Navigation', 'worldstar-pro' ),
+			'social' => esc_html__( 'Header Social Icons', 'worldstar-pro' ),
 		) );
 
 	}
 }
 
 // Run Class.
-add_action( 'init', array( 'Gambit_Pro_Header_Bar', 'setup' ) );
+add_action( 'init', array( 'WorldStar_Pro_Header_Bar', 'setup' ) );
 
 // Register navigation menus in backend.
-add_action( 'after_setup_theme', array( 'Gambit_Pro_Header_Bar', 'register_nav_menus' ), 20 );
+add_action( 'after_setup_theme', array( 'WorldStar_Pro_Header_Bar', 'register_nav_menus' ), 20 );

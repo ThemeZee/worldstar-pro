@@ -4,7 +4,7 @@
  *
  * Setup the Customizer and theme options for the Pro plugin
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Customizer Class
  */
-class Gambit_Pro_Customizer {
+class WorldStar_Pro_Customizer {
 
 	/**
 	 * Customizer Setup
@@ -22,8 +22,8 @@ class Gambit_Pro_Customizer {
 	 */
 	static function setup() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
@@ -32,7 +32,7 @@ class Gambit_Pro_Customizer {
 		add_action( 'customize_controls_print_styles', array( __CLASS__, 'customize_preview_css' ) );
 
 		// Remove Upgrade section.
-		remove_action( 'customize_register', 'gambit_customize_register_upgrade_settings' );
+		remove_action( 'customize_register', 'worldstar_customize_register_upgrade_settings' );
 	}
 
 	/**
@@ -43,7 +43,7 @@ class Gambit_Pro_Customizer {
 	static function get_theme_options() {
 
 		// Merge Theme Options Array from Database with Default Options Array.
-		$theme_options = wp_parse_args( get_option( 'gambit_theme_options', array() ), self::get_default_options() );
+		$theme_options = wp_parse_args( get_option( 'worldstar_theme_options', array() ), self::get_default_options() );
 
 		// Return theme options.
 		return $theme_options;
@@ -88,7 +88,7 @@ class Gambit_Pro_Customizer {
 	 */
 	static function customize_preview_js() {
 
-		wp_enqueue_script( 'gambit-pro-customizer-js', GAMBIT_PRO_PLUGIN_URL . 'assets/js/customizer.js', array( 'customize-preview' ), GAMBIT_PRO_VERSION, true );
+		wp_enqueue_script( 'worldstar-pro-customizer-js', WORLDSTAR_PRO_PLUGIN_URL . 'assets/js/customizer.js', array( 'customize-preview' ), WORLDSTAR_PRO_VERSION, true );
 
 	}
 
@@ -99,10 +99,10 @@ class Gambit_Pro_Customizer {
 	 */
 	static function customize_preview_css() {
 
-		wp_enqueue_style( 'gambit-pro-customizer-css', GAMBIT_PRO_PLUGIN_URL . 'assets/css/customizer.css', array(), GAMBIT_PRO_VERSION );
+		wp_enqueue_style( 'worldstar-pro-customizer-css', WORLDSTAR_PRO_PLUGIN_URL . 'assets/css/customizer.css', array(), WORLDSTAR_PRO_VERSION );
 
 	}
 }
 
 // Run Class.
-add_action( 'init', array( 'Gambit_Pro_Customizer', 'setup' ) );
+add_action( 'init', array( 'WorldStar_Pro_Customizer', 'setup' ) );

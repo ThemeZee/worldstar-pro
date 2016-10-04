@@ -1,5 +1,5 @@
 ===================================
-Gambit Pro Changelog
+WorldStar Pro Changelog
 ===================================
 
 Version 1.0

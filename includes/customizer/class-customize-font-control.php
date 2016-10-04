@@ -2,7 +2,7 @@
 /**
  * Custom Font Control for the Customizer
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 /**
@@ -13,14 +13,14 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 	/**
 	 * Displays a custom Font control. Allows to switch fonts for particular elements on the theme.
 	 */
-	class Gambit_Pro_Customize_Font_Control extends WP_Customize_Control {
+	class WorldStar_Pro_Customize_Font_Control extends WP_Customize_Control {
 
 		/**
 		 * Declare the control type. Critical for JS constructor.
 		 *
 		 * @var string
 		 */
-		public $type = 'gambit_pro_custom_font';
+		public $type = 'worldstar_pro_custom_font';
 
 		/**
 		 * Localization Strings.
@@ -48,16 +48,16 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 
 			// Make Buttons translateable.
 			$this->l10n = array(
-				'previous' => __( 'Previous Font', 'gambit-pro' ),
-				'next' => __( 'Next Font', 'gambit-pro' ),
-				'standard' => _x( 'Default', 'default font button', 'gambit-pro' ),
+				'previous' => __( 'Previous Font', 'worldstar-pro' ),
+				'next' => __( 'Next Font', 'worldstar-pro' ),
+				'standard' => _x( 'Default', 'default font button', 'worldstar-pro' ),
 			);
 
 			// Get Theme Options.
-			$theme_options = Gambit_Pro_Customizer::get_theme_options();
+			$theme_options = WorldStar_Pro_Customizer::get_theme_options();
 
 			// Set Fonts.
-			$this->fonts = Gambit_Pro_Custom_Font_Lists::get_fonts( $theme_options['available_fonts'] );
+			$this->fonts = WorldStar_Pro_Custom_Font_Lists::get_fonts( $theme_options['available_fonts'] );
 
 			parent::__construct( $manager, $id, $args );
 
@@ -71,7 +71,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) :
 		public function enqueue() {
 
 			// Register and Enqueue Custom Font JS Constructor.
-			wp_enqueue_script( 'gambit-pro-custom-font-control', GAMBIT_PRO_PLUGIN_URL . 'assets/js/custom-font-control.js', array( 'customize-controls' ), GAMBIT_PRO_VERSION, true );
+			wp_enqueue_script( 'worldstar-pro-custom-font-control', WORLDSTAR_PRO_PLUGIN_URL . 'assets/js/custom-font-control.js', array( 'customize-controls' ), WORLDSTAR_PRO_VERSION, true );
 
 		}
 

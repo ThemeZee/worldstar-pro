@@ -4,7 +4,7 @@
  *
  * Adds extra settings to handle spacings in the header area
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Header Spacing Class
  */
-class Gambit_Pro_Header_Spacing {
+class WorldStar_Pro_Header_Spacing {
 
 	/**
 	 * Site Logo Setup
@@ -22,13 +22,13 @@ class Gambit_Pro_Header_Spacing {
 	 */
 	static function setup() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		// Add Custom Spacing CSS code to custom stylesheet output.
-		add_filter( 'gambit_pro_custom_css_stylesheet', array( __CLASS__, 'custom_spacing_css' ) );
+		add_filter( 'worldstar_pro_custom_css_stylesheet', array( __CLASS__, 'custom_spacing_css' ) );
 
 		// Add Header Spacing Settings.
 		add_action( 'customize_register', array( __CLASS__, 'header_spacing_settings' ) );
@@ -43,7 +43,7 @@ class Gambit_Pro_Header_Spacing {
 	static function custom_spacing_css( $custom_css ) {
 
 		// Get Theme Options from Database.
-		$theme_options = Gambit_Pro_Customizer::get_theme_options();
+		$theme_options = WorldStar_Pro_Customizer::get_theme_options();
 
 		// Set Logo Spacing.
 		if ( 0 !== $theme_options['logo_spacing'] ) {
@@ -88,42 +88,42 @@ class Gambit_Pro_Header_Spacing {
 	static function header_spacing_settings( $wp_customize ) {
 
 		// Add Sections for Site Logo.
-		$wp_customize->add_section( 'gambit_pro_section_header', array(
-			'title'    => __( 'Header Spacing', 'gambit-pro' ),
+		$wp_customize->add_section( 'worldstar_pro_section_header', array(
+			'title'    => __( 'Header Spacing', 'worldstar-pro' ),
 			'priority' => 20,
-			'panel' => 'gambit_options_panel',
+			'panel' => 'worldstar_options_panel',
 			)
 		);
 
 		// Add Logo Spacing setting.
-		$wp_customize->add_setting( 'gambit_theme_options[logo_spacing]', array(
+		$wp_customize->add_setting( 'worldstar_theme_options[logo_spacing]', array(
 			'default'           => 0,
 			'type'           	=> 'option',
 			'transport'         => 'refresh',
 			'sanitize_callback' => 'absint',
 			)
 		);
-		$wp_customize->add_control( 'gambit_theme_options[logo_spacing]', array(
-			'label'    => __( 'Logo Spacing (default: 0)', 'gambit-pro' ),
-			'section'  => 'gambit_pro_section_header',
-			'settings' => 'gambit_theme_options[logo_spacing]',
+		$wp_customize->add_control( 'worldstar_theme_options[logo_spacing]', array(
+			'label'    => __( 'Logo Spacing (default: 0)', 'worldstar-pro' ),
+			'section'  => 'worldstar_pro_section_header',
+			'settings' => 'worldstar_theme_options[logo_spacing]',
 			'type'     => 'text',
 			'priority' => 2,
 			)
 		);
 
 		// Add Header Spacing setting.
-		$wp_customize->add_setting( 'gambit_theme_options[header_spacing]', array(
+		$wp_customize->add_setting( 'worldstar_theme_options[header_spacing]', array(
 			'default'           => 20,
 			'type'           	=> 'option',
 			'transport'         => 'refresh',
 			'sanitize_callback' => 'absint',
 			)
 		);
-		$wp_customize->add_control( 'gambit_theme_options[header_spacing]', array(
-			'label'    => __( 'Header Spacing (default: 20)', 'gambit-pro' ),
-			'section'  => 'gambit_pro_section_header',
-			'settings' => 'gambit_theme_options[header_spacing]',
+		$wp_customize->add_control( 'worldstar_theme_options[header_spacing]', array(
+			'label'    => __( 'Header Spacing (default: 20)', 'worldstar-pro' ),
+			'section'  => 'worldstar_pro_section_header',
+			'settings' => 'worldstar_theme_options[header_spacing]',
 			'type'     => 'text',
 			'priority' => 3,
 			)
@@ -133,4 +133,4 @@ class Gambit_Pro_Header_Spacing {
 }
 
 // Run Class.
-add_action( 'init', array( 'Gambit_Pro_Header_Spacing', 'setup' ) );
+add_action( 'init', array( 'WorldStar_Pro_Header_Spacing', 'setup' ) );

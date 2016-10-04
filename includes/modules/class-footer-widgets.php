@@ -2,9 +2,9 @@
 /**
  * Footer Widgets
  *
- * Registers footer widget areas and hooks into the Gambit theme to display widgets
+ * Registers footer widget areas and hooks into the WorldStar theme to display widgets
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Footer Widgets Class
  */
-class Gambit_Pro_Footer_Widgets {
+class WorldStar_Pro_Footer_Widgets {
 
 	/**
 	 * Footer Widgets Setup
@@ -22,20 +22,20 @@ class Gambit_Pro_Footer_Widgets {
 	 */
 	static function setup() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		// Display footer widgets.
-		add_action( 'gambit_before_footer', array( __CLASS__, 'display_widgets' ) );
+		add_action( 'worldstar_before_footer', array( __CLASS__, 'display_widgets' ) );
 
 	}
 
 	/**
 	 * Displays Footer Widgets
 	 *
-	 * Hooks into the gambit_before_footer action hook in footer area.
+	 * Hooks into the worldstar_before_footer action hook in footer area.
 	 */
 	static function display_widgets() {
 
@@ -85,16 +85,16 @@ class Gambit_Pro_Footer_Widgets {
 	 */
 	static function register_widgets() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		// Register Footer Left widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Left', 'gambit-pro' ),
+			'name' => __( 'Footer Left', 'worldstar-pro' ),
 			'id' => 'footer-left',
-			'description' => __( 'Appears on footer on the left hand side.', 'gambit-pro' ),
+			'description' => __( 'Appears on footer on the left hand side.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
@@ -103,9 +103,9 @@ class Gambit_Pro_Footer_Widgets {
 
 		// Register Footer Center Left widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Center Left', 'gambit-pro' ),
+			'name' => __( 'Footer Center Left', 'worldstar-pro' ),
 			'id' => 'footer-center-left',
-			'description' => __( 'Appears on footer on center left position.', 'gambit-pro' ),
+			'description' => __( 'Appears on footer on center left position.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
@@ -114,9 +114,9 @@ class Gambit_Pro_Footer_Widgets {
 
 		// Register Footer Center Right widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Center Right', 'gambit-pro' ),
+			'name' => __( 'Footer Center Right', 'worldstar-pro' ),
 			'id' => 'footer-center-right',
-			'description' => __( 'Appears on footer on center right position.', 'gambit-pro' ),
+			'description' => __( 'Appears on footer on center right position.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
@@ -125,9 +125,9 @@ class Gambit_Pro_Footer_Widgets {
 
 		// Register Footer Right widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Right', 'gambit-pro' ),
+			'name' => __( 'Footer Right', 'worldstar-pro' ),
 			'id' => 'footer-right',
-			'description' => __( 'Appears on footer on the right hand side.', 'gambit-pro' ),
+			'description' => __( 'Appears on footer on the right hand side.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
@@ -138,7 +138,7 @@ class Gambit_Pro_Footer_Widgets {
 }
 
 // Run Class.
-add_action( 'init', array( 'Gambit_Pro_Footer_Widgets', 'setup' ) );
+add_action( 'init', array( 'WorldStar_Pro_Footer_Widgets', 'setup' ) );
 
 // Register widgets in backend.
-add_action( 'widgets_init', array( 'Gambit_Pro_Footer_Widgets', 'register_widgets' ), 20 );
+add_action( 'widgets_init', array( 'WorldStar_Pro_Footer_Widgets', 'register_widgets' ), 20 );

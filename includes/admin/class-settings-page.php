@@ -1,10 +1,10 @@
 <?php
 /**
- * Gambit Pro Settings Page Class
+ * WorldStar Pro Settings Page Class
  *
  * Adds a new tab on the themezee plugins page and displays the settings page.
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 // Exit if accessed directly.
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Settings Page Class
  */
-class Gambit_Pro_Settings_Page {
+class WorldStar_Pro_Settings_Page {
 
 	/**
 	 * Setup the Settings Page class
@@ -37,16 +37,16 @@ class Gambit_Pro_Settings_Page {
 	 */
 	static function add_settings_page() {
 
-		// Return early if Gambit Theme is not active.
-		if ( ! current_theme_supports( 'gambit-pro' ) ) {
+		// Return early if WorldStar Theme is not active.
+		if ( ! current_theme_supports( 'worldstar-pro' ) ) {
 			return;
 		}
 
 		add_theme_page(
-			esc_html__( 'Pro Version', 'gambit-pro' ),
-			esc_html__( 'Pro Version', 'gambit-pro' ),
+			esc_html__( 'Pro Version', 'worldstar-pro' ),
+			esc_html__( 'Pro Version', 'worldstar-pro' ),
 			'edit_theme_options',
-			'gambit-pro',
+			'worldstar-pro',
 			array( __CLASS__, 'display_settings_page' )
 		);
 
@@ -67,18 +67,18 @@ class Gambit_Pro_Settings_Page {
 
 		<div class="wrap pro-version-wrap">
 
-			<h1><?php echo GAMBIT_PRO_NAME; ?> <?php echo GAMBIT_PRO_VERSION; ?></h1>
+			<h1><?php echo WORLDSTAR_PRO_NAME; ?> <?php echo WORLDSTAR_PRO_VERSION; ?></h1>
 
-			<div id="gambit-pro-settings" class="gambit-pro-settings-wrap">
+			<div id="worldstar-pro-settings" class="worldstar-pro-settings-wrap">
 
-				<form class="gambit-pro-settings-form" method="post" action="options.php">
+				<form class="worldstar-pro-settings-form" method="post" action="options.php">
 					<?php
-						settings_fields( 'gambit_pro_settings' );
-						do_settings_sections( 'gambit_pro_settings' );
+						settings_fields( 'worldstar_pro_settings' );
+						do_settings_sections( 'worldstar_pro_settings' );
 					?>
 				</form>
 
-				<p><?php printf( __( 'You can find your license keys and manage your active sites on <a href="%s" target="_blank">themezee.com</a>.', 'gambit-pro' ), __( 'https://themezee.com/license-keys/', 'gambit-pro' ) . '?utm_source=plugin-settings&utm_medium=textlink&utm_campaign=gambit-pro&utm_content=license-keys' ); ?></p>
+				<p><?php printf( __( 'You can find your license keys and manage your active sites on <a href="%s" target="_blank">themezee.com</a>.', 'worldstar-pro' ), __( 'https://themezee.com/license-keys/', 'worldstar-pro' ) . '?utm_source=plugin-settings&utm_medium=textlink&utm_campaign=worldstar-pro&utm_content=license-keys' ); ?></p>
 
 			</div>
 
@@ -97,15 +97,15 @@ class Gambit_Pro_Settings_Page {
 	static function settings_page_css( $hook ) {
 
 		// Load styles and scripts only on theme info page.
-		if ( 'appearance_page_gambit-pro' != $hook ) {
+		if ( 'appearance_page_worldstar-pro' != $hook ) {
 			return;
 		}
 
 		// Embed theme info css style.
-		wp_enqueue_style( 'gambit-pro-settings-css', plugins_url( '/assets/css/settings.css', dirname( dirname( __FILE__ ) ) ), array(), GAMBIT_PRO_VERSION );
+		wp_enqueue_style( 'worldstar-pro-settings-css', plugins_url( '/assets/css/settings.css', dirname( dirname( __FILE__ ) ) ), array(), WORLDSTAR_PRO_VERSION );
 
 	}
 }
 
-// Run Gambit Pro Settings Page Class.
-Gambit_Pro_Settings_Page::setup();
+// Run WorldStar Pro Settings Page Class.
+WorldStar_Pro_Settings_Page::setup();

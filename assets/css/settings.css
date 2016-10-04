@@ -1,17 +1,17 @@
 /*
- * Gambit Settings CSS
+ * WorldStar Settings CSS
  *
  * CSS Stylesheet for settings page on Appearance -> Pro Version
  *
- * @package Gambit Pro
+ * @package WorldStar Pro
  */
 
 /* License Settings */
-.gambit-pro-settings-wrap {
+.worldstar-pro-settings-wrap {
 	margin: 25px 0 0;
 }
 
-.gambit-pro-settings-wrap .license-status {
+.worldstar-pro-settings-wrap .license-status {
 	display: inline-block;
 	color: #fff;
 	background: #444;
@@ -20,19 +20,19 @@
 	text-transform: uppercase;
 }
 
-.gambit-pro-settings-wrap .license-active {
+.worldstar-pro-settings-wrap .license-active {
 	background: green;
 }
 
-.gambit-pro-settings-wrap .license-invalid,
-.gambit-pro-settings-wrap .license-expired {
+.worldstar-pro-settings-wrap .license-invalid,
+.worldstar-pro-settings-wrap .license-expired {
 	background: red;
 }
 
-.gambit-pro-settings-wrap .license-description {
+.worldstar-pro-settings-wrap .license-description {
 	margin: 16px 0 0;
 }
 
-.gambit-pro-settings-wrap .license-renewal {
+.worldstar-pro-settings-wrap .license-renewal {
 	margin: 16px 0 0;
 }
