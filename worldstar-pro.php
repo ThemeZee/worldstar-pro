@@ -114,7 +114,7 @@ class WorldStar_Pro {
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-footer-line.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-footer-widgets.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-header-bar.php';
-		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-header-spacing.php';
+		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-header-settings.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-post-meta.php';
 
 		// Include Magazine Widgets.

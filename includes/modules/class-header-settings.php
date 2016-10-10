@@ -1,6 +1,6 @@
 <?php
 /**
- * Header Spacing
+ * Header Settings
  *
  * Adds extra settings to handle spacings in the header area
  *
@@ -11,9 +11,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * Header Spacing Class
+ * Header Settings Class
  */
-class WorldStar_Pro_Header_Spacing {
+class WorldStar_Pro_Header_Settings {
 
 	/**
 	 * Site Logo Setup
@@ -30,8 +30,8 @@ class WorldStar_Pro_Header_Spacing {
 		// Add Custom Spacing CSS code to custom stylesheet output.
 		add_filter( 'worldstar_pro_custom_css_stylesheet', array( __CLASS__, 'custom_spacing_css' ) );
 
-		// Add Header Spacing Settings.
-		add_action( 'customize_register', array( __CLASS__, 'header_spacing_settings' ) );
+		// Add Header Settings Settings.
+		add_action( 'customize_register', array( __CLASS__, 'header_settings' ) );
 	}
 
 	/**
@@ -52,7 +52,7 @@ class WorldStar_Pro_Header_Spacing {
 
 			$custom_css .= '
 				.site-branding {
-					margin: '. $margin .'em 0;
+					margin: ' . $margin . 'em 0;
 				}
 				';
 
@@ -66,10 +66,10 @@ class WorldStar_Pro_Header_Spacing {
 			$custom_css .= '
 				@media only screen and (min-width: 60em) {
 
-				    .header-main {
-						padding-top: '. $margin .'em;
-						padding-bottom: '. $margin .'em;
-				    }
+			    .header-main {
+						padding-top: ' . $margin . 'em;
+						padding-bottom: ' . $margin . 'em;
+			    }
 
 				}
 				';
@@ -85,13 +85,30 @@ class WorldStar_Pro_Header_Spacing {
 	 *
 	 * @param object $wp_customize / Customizer Object.
 	 */
-	static function header_spacing_settings( $wp_customize ) {
+	static function header_settings( $wp_customize ) {
 
 		// Add Sections for Site Logo.
 		$wp_customize->add_section( 'worldstar_pro_section_header', array(
-			'title'    => __( 'Header Spacing', 'worldstar-pro' ),
+			'title'    => __( 'Header Settings', 'worldstar-pro' ),
 			'priority' => 20,
 			'panel' => 'worldstar_options_panel',
+			)
+		);
+
+		// Add Header Bar Text setting.
+		$wp_customize->add_setting( 'worldstar_theme_options[header_bar_text]', array(
+			'default'           => '',
+			'type'            	=> 'option',
+			'transport'         => 'refresh',
+			'sanitize_callback' => 'wp_kses_post',
+			)
+		);
+		$wp_customize->add_control( 'worldstar_theme_options[header_bar_text]', array(
+			'label'    => esc_html__( 'Header Bar Text', 'worldstar-pro' ),
+			'section'  => 'worldstar_pro_section_header',
+			'settings' => 'worldstar_theme_options[header_bar_text]',
+			'type'     => 'text',
+			'priority' => 10,
 			)
 		);
 
@@ -108,11 +125,11 @@ class WorldStar_Pro_Header_Spacing {
 			'section'  => 'worldstar_pro_section_header',
 			'settings' => 'worldstar_theme_options[logo_spacing]',
 			'type'     => 'text',
-			'priority' => 2,
+			'priority' => 20,
 			)
 		);
 
-		// Add Header Spacing setting.
+		// Add Header Settings setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[header_spacing]', array(
 			'default'           => 20,
 			'type'           	=> 'option',
@@ -125,7 +142,7 @@ class WorldStar_Pro_Header_Spacing {
 			'section'  => 'worldstar_pro_section_header',
 			'settings' => 'worldstar_theme_options[header_spacing]',
 			'type'     => 'text',
-			'priority' => 3,
+			'priority' => 30,
 			)
 		);
 
@@ -133,4 +150,4 @@ class WorldStar_Pro_Header_Spacing {
 }
 
 // Run Class.
-add_action( 'init', array( 'WorldStar_Pro_Header_Spacing', 'setup' ) );
+add_action( 'init', array( 'WorldStar_Pro_Header_Settings', 'setup' ) );

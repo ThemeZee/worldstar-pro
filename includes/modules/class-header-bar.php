@@ -39,25 +39,17 @@ class WorldStar_Pro_Header_Bar {
 	 */
 	static function display_header_bar() {
 
+		// Get Theme Options from Database.
+		$theme_options = WorldStar_Pro_Customizer::get_theme_options();
+
 		echo '<div id="header-bar" class="header-bar container clearfix">';
 
-		// Check if there is a social menu.
-		if ( has_nav_menu( 'social' ) ) {
+		// Check if there is header bar text.
+		if ( '' !== $theme_options['header_bar_text'] ) {
 
-			echo '<div id="header-social-icons" class="header-social-icons social-icons-navigation clearfix">';
+			echo '<div id="header-bar-text" class="header-bar-text clearfix">';
 
-			// Display Social Icons Menu.
-			wp_nav_menu( array(
-				'theme_location' => 'social',
-				'container' => false,
-				'menu_class' => 'social-icons-menu',
-				'echo' => true,
-				'fallback_cb' => '',
-				'link_before' => '<span class="screen-reader-text">',
-				'link_after' => '</span>',
-				'depth' => 1,
-				)
-			);
+			echo wp_kses_post( $theme_options['header_bar_text'] );
 
 			echo '</div>';
 
@@ -100,7 +92,6 @@ class WorldStar_Pro_Header_Bar {
 
 		register_nav_menus( array(
 			'secondary' => esc_html__( 'Top Navigation', 'worldstar-pro' ),
-			'social' => esc_html__( 'Header Social Icons', 'worldstar-pro' ),
 		) );
 
 	}
