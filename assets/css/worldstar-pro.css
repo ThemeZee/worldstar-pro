@@ -248,7 +248,8 @@
 # Footer Widgets
 --------------------------------------------------------------*/
 .footer-widgets-background {
-	background: #252525;
+	background: #222;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
 	padding: 2em 2em 0;
 }
 
@@ -256,6 +257,7 @@
 	margin-right: -2em;
 }
 
+/* Default: Four Column Footer Widgets */
 .footer-widget-column {
 	float: left;
 	width: 25%;
@@ -263,6 +265,26 @@
 	box-sizing: border-box;
 }
 
+/* One Column Footer Widgets */
+.footer-widget-column:nth-child(1):nth-last-child(1) {
+	float: none;
+	width: 100%;
+}
+
+/* Two Column Footer Widgets */
+.footer-widget-column:nth-child(1):nth-last-child(2),
+.footer-widget-column:nth-child(2):nth-last-child(1) {
+	width: 50%;
+}
+
+/* Three Column Footer Widgets */
+.footer-widget-column:nth-child(1):nth-last-child(3),
+.footer-widget-column:nth-child(2):nth-last-child(2),
+.footer-widget-column:nth-child(3):nth-last-child(1) {
+	width: 33.3333%;
+}
+
+/* Footer Widget Styling */
 .footer-widgets .widget {
 	color: #fff;
 	background: none;
@@ -271,11 +293,12 @@
 }
 
 .footer-widgets .widget-header {
-	background: rgba(255,255,255,0.1);
+	border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .footer-widgets .widget-title {
 	color: #fff;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .footer-widgets .widget a:link,
@@ -421,11 +444,15 @@
 		display: none;
 	}
 
-	.footer-widget-column {
+	/* Four Column Footer Widgets */
+	.footer-widget-column:nth-child(1):nth-last-child(4),
+	.footer-widget-column:nth-child(2):nth-last-child(3),
+	.footer-widget-column:nth-child(3):nth-last-child(2),
+	.footer-widget-column:nth-child(4):nth-last-child(1) {
 		width: 50%;
 	}
 
-	.footer-widget-column:nth-child(3) {
+	.footer-widget-column:nth-child(3):nth-last-child(2) {
 		clear: left;
 	}
 
@@ -436,8 +463,8 @@
 --------------------------------------------------------------*/
 @media only screen and (max-width: 60em) {
 
-	.header-bar {
-		margin: 0;
+	.header-bar,
+	.footer-widgets-wrap {
 		padding: 0;
 	}
 
@@ -644,6 +671,13 @@
 		max-width: 60%;
 	}
 
+	/* Three Column Footer Widgets */
+	.footer-widget-column:nth-child(1):nth-last-child(3),
+	.footer-widget-column:nth-child(2):nth-last-child(2),
+	.footer-widget-column:nth-child(3):nth-last-child(1) {
+		width: 100%;
+	}
+
 }
 
 /*--------------------------------------------------------------
@@ -776,7 +810,7 @@
 		margin-right: 0;
 	}
 
-	.footer-widget-column {
+	#footer-widgets .footer-widget-column {
 		float: none;
 		width: 100%;
 		padding-right: 0;

@@ -40,10 +40,10 @@ class WorldStar_Pro_Footer_Widgets {
 	static function display_widgets() {
 
 		// Check if there are footer widgets.
-		if ( is_active_sidebar( 'footer-left' )
-			or is_active_sidebar( 'footer-center-left' )
-			or is_active_sidebar( 'footer-center-right' )
-			or is_active_sidebar( 'footer-right' ) ) : ?>
+		if ( is_active_sidebar( 'footer-column-1' )
+			or is_active_sidebar( 'footer-column-2' )
+			or is_active_sidebar( 'footer-column-3' )
+			or is_active_sidebar( 'footer-column-4' ) ) : ?>
 
 			<div id="footer-widgets-bg" class="footer-widgets-background">
 
@@ -51,22 +51,37 @@ class WorldStar_Pro_Footer_Widgets {
 
 					<div id="footer-widgets" class="footer-widgets clearfix"  role="complementary">
 
-						<div class="footer-widget-column widget-area">
-							<?php dynamic_sidebar( 'footer-left' ); ?>
-						</div>
+						<?php if ( is_active_sidebar( 'footer-column-1' ) ) : ?>
 
-						<div class="footer-widget-column widget-area">
-							<?php dynamic_sidebar( 'footer-center-left' ); ?>
-						</div>
+							<div class="footer-widget-column widget-area">
+								<?php dynamic_sidebar( 'footer-column-1' ); ?>
+							</div>
 
+						<?php endif; ?>
 
-						<div class="footer-widget-column widget-area">
-							<?php dynamic_sidebar( 'footer-center-right' ); ?>
-						</div>
+						<?php if ( is_active_sidebar( 'footer-column-2' ) ) : ?>
 
-						<div class="footer-widget-column widget-area">
-							<?php dynamic_sidebar( 'footer-right' ); ?>
-						</div>
+							<div class="footer-widget-column widget-area">
+								<?php dynamic_sidebar( 'footer-column-2' ); ?>
+							</div>
+
+						<?php endif; ?>
+
+						<?php if ( is_active_sidebar( 'footer-column-3' ) ) : ?>
+
+							<div class="footer-widget-column widget-area">
+								<?php dynamic_sidebar( 'footer-column-3' ); ?>
+							</div>
+
+						<?php endif; ?>
+
+						<?php if ( is_active_sidebar( 'footer-column-4' ) ) : ?>
+
+							<div class="footer-widget-column widget-area">
+								<?php dynamic_sidebar( 'footer-column-4' ); ?>
+							</div>
+
+						<?php endif; ?>
 
 					</div>
 
@@ -90,49 +105,49 @@ class WorldStar_Pro_Footer_Widgets {
 			return;
 		}
 
-		// Register Footer Left widget area.
+		// Register Footer Column 1 widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Left', 'worldstar-pro' ),
-			'id' => 'footer-left',
-			'description' => __( 'Appears on footer on the left hand side.', 'worldstar-pro' ),
+			'name' => __( 'Footer Column 1', 'worldstar-pro' ),
+			'id' => 'footer-column-1',
+			'description' => __( 'Appears on the first footer column.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
 			'after_title' => '</h3></div>',
-		));
+		) );
 
-		// Register Footer Center Left widget area.
+		// Register Footer Column 2 widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Center Left', 'worldstar-pro' ),
-			'id' => 'footer-center-left',
-			'description' => __( 'Appears on footer on center left position.', 'worldstar-pro' ),
+			'name' => __( 'Footer Column 2', 'worldstar-pro' ),
+			'id' => 'footer-column-2',
+			'description' => __( 'Appears on the second footer column.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
 			'after_title' => '</h3></div>',
-		));
+		) );
 
-		// Register Footer Center Right widget area.
+		// Register Footer Column 3 widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Center Right', 'worldstar-pro' ),
-			'id' => 'footer-center-right',
-			'description' => __( 'Appears on footer on center right position.', 'worldstar-pro' ),
+			'name' => __( 'Footer Column 3', 'worldstar-pro' ),
+			'id' => 'footer-column-3',
+			'description' => __( 'Appears on the third footer column.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
 			'after_title' => '</h3></div>',
-		));
+		) );
 
-		// Register Footer Right widget area.
+		// Register Footer Column 4 widget area.
 		register_sidebar( array(
-			'name' => __( 'Footer Right', 'worldstar-pro' ),
-			'id' => 'footer-right',
-			'description' => __( 'Appears on footer on the right hand side.', 'worldstar-pro' ),
+			'name' => __( 'Footer Column 4', 'worldstar-pro' ),
+			'id' => 'footer-column-4',
+			'description' => __( 'Appears on the fourth footer column.', 'worldstar-pro' ),
 			'before_widget' => '<aside id="%1$s" class="widget %2$s clearfix">',
 			'after_widget' => '</aside>',
 			'before_title' => '<div class="widget-header"><h3 class="widget-title">',
 			'after_title' => '</h3></div>',
-		));
+		) );
 
 	}
 }
