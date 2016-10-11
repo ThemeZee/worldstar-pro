@@ -62,6 +62,7 @@ class WorldStar_Pro_Customizer {
 			'header_bar_text'             => '',
 			'logo_spacing'                => 0,
 			'header_spacing'              => 20,
+			'footer_social_icons_text'    => __( 'Stay in Touch', 'worldstar-pro' ),
 			'footer_text'                 => '',
 			'credit_link'                 => true,
 			'top_navi_color'              => '#1585b5',

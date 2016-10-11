@@ -29,14 +29,14 @@ class WorldStar_Pro_Footer_Line {
 		}
 
 		// Display footer navigation.
-		add_action( 'worldstar_before_footer', array( __CLASS__, 'display_footer_navigation' ), 20 );
+		add_action( 'worldstar_before_footer', array( __CLASS__, 'display_footer_social_menu' ), 10 );
 
 		// Remove default footer text function and replace it with new one.
 		remove_action( 'worldstar_footer_text', 'worldstar_footer_text' );
 		add_action( 'worldstar_footer_text', array( __CLASS__, 'display_footer_text' ) );
 
 		// Display social icons in footer.
-		add_action( 'worldstar_footer_menu', array( __CLASS__, 'display_footer_social_menu' ) );
+		add_action( 'worldstar_footer_menu', array( __CLASS__, 'display_footer_navigation' ) );
 
 		// Add Footer Settings in Customizer.
 		add_action( 'customize_register', array( __CLASS__, 'footer_settings' ) );
@@ -53,29 +53,19 @@ class WorldStar_Pro_Footer_Line {
 		// Check if there is a footer menu.
 		if ( has_nav_menu( 'footer' ) ) {
 
-			echo '<div id="footer-navigation-wrap" class="footer-navigation-wrap">';
+			echo '<nav id="footer-navigation" class="footer-navigation navigation clearfix" role="navigation">';
 
-				echo '<div id="footer-navigation-bg" class="footer-navigation-background">';
+				wp_nav_menu( array(
+					'theme_location' => 'footer',
+					'container' => false,
+					'menu_class' => 'footer-navigation-menu',
+					'echo' => true,
+					'fallback_cb' => '',
+					'depth' => 1,
+					)
+				);
 
-					echo '<nav id="footer-navigation" class="footer-navigation navigation container clearfix" role="navigation">';
-
-						echo '<span class="today">' . date( get_option( 'date_format' ) . ' / ' . get_option( 'time_format' ) ) . '</span>';
-
-						wp_nav_menu( array(
-							'theme_location' => 'footer',
-							'container' => false,
-							'menu_class' => 'footer-navigation-menu',
-							'echo' => true,
-							'fallback_cb' => '',
-							'depth' => 1,
-							)
-						);
-
-					echo '</nav>';
-
-				echo '</div>';
-
-			echo '</div><!-- #footer-navigation-wrap -->';
+			echo '</nav>';
 
 		}
 
@@ -121,7 +111,19 @@ class WorldStar_Pro_Footer_Line {
 		// Check if there is a social menu.
 		if ( has_nav_menu( 'footer-social' ) ) {
 
-			echo '<div id="footer-social-icons" class="footer-social-icons social-icons-navigation clearfix">';
+			// Get Theme Options from Database.
+			$theme_options = WorldStar_Pro_Customizer::get_theme_options();
+
+			echo '<div class="footer-social-icons-wrap">';
+
+			echo '<div id="footer-social-icons" class="footer-social-icons social-icons-navigation container clearfix">';
+
+			// Check if there is header bar text.
+			if ( '' !== $theme_options['footer_social_icons_text'] ) {
+
+				printf( '<h3 class="footer-social-icons-title">%s</h3>', wp_kses_post( $theme_options['footer_social_icons_text'] ) );
+
+			}
 
 			// Display Social Icons Menu.
 			wp_nav_menu( array(
@@ -135,6 +137,8 @@ class WorldStar_Pro_Footer_Line {
 				'depth' => 1,
 				)
 			);
+
+			echo '</div>';
 
 			echo '</div>';
 
@@ -157,6 +161,24 @@ class WorldStar_Pro_Footer_Line {
 			)
 		);
 
+		// Add Footer Social Icons Text setting.
+		$wp_customize->add_setting( 'worldstar_theme_options[footer_social_icons_text]', array(
+			'default'           => __( 'Stay in Touch', 'worldstar-pro' ),
+			'type'           	=> 'option',
+			'transport'         => 'refresh',
+			'sanitize_callback' => array( __CLASS__, 'sanitize_footer_text' ),
+			)
+		);
+		$wp_customize->add_control( 'worldstar_theme_options[footer_social_icons_text]', array(
+			'label'    => __( 'Social Icons Text', 'worldstar-pro' ),
+			'section'  => 'worldstar_pro_section_footer',
+			'settings' => 'worldstar_theme_options[footer_social_icons_text]',
+			'type'     => 'text',
+			'active_callback' => array( __CLASS__, 'has_social_menu' ),
+			'priority' => 10,
+			)
+		);
+
 		// Add Footer Text setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[footer_text]', array(
 			'default'           => '',
@@ -170,7 +192,7 @@ class WorldStar_Pro_Footer_Line {
 			'section'  => 'worldstar_pro_section_footer',
 			'settings' => 'worldstar_theme_options[footer_text]',
 			'type'     => 'textarea',
-			'priority' => 1,
+			'priority' => 20,
 			)
 		);
 
@@ -187,7 +209,7 @@ class WorldStar_Pro_Footer_Line {
 			'section'  => 'worldstar_pro_section_footer',
 			'settings' => 'worldstar_theme_options[credit_link]',
 			'type'     => 'checkbox',
-			'priority' => 2,
+			'priority' => 30,
 			)
 		);
 
@@ -206,6 +228,22 @@ class WorldStar_Pro_Footer_Line {
 		else :
 			return stripslashes( wp_filter_post_kses( addslashes( $value ) ) );
 		endif;
+	}
+
+	/**
+	 * Adds a callback function to retrieve wether a footer social icons menu was set or not.
+	 *
+	 * @param object $control / Instance of the Customizer Control.
+	 * @return bool
+	 */
+	static function has_social_menu( $control ) {
+
+		// Check if social icons menu exists.
+		if ( has_nav_menu( 'footer-social' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

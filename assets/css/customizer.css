@@ -7,7 +7,8 @@
  */
 
 #customize-control-worldstar_theme_options-logo_spacing,
-#customize-control-worldstar_theme_options-header_spacing {
+#customize-control-worldstar_theme_options-header_spacing,
+#customize-control-worldstar_theme_options-footer_text {
 	margin-top: 16px;
 }
 

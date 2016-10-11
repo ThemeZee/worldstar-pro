@@ -28,7 +28,7 @@ class WorldStar_Pro_Footer_Widgets {
 		}
 
 		// Display footer widgets.
-		add_action( 'worldstar_before_footer', array( __CLASS__, 'display_widgets' ) );
+		add_action( 'worldstar_before_footer', array( __CLASS__, 'display_widgets' ), 20 );
 
 	}
 
