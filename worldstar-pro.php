@@ -109,7 +109,7 @@ class WorldStar_Pro {
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/customizer/class-customizer.php';
 
 		// Include Pro Features.
-		#require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-custom-colors.php';
+		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-custom-colors.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-custom-fonts.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-footer-line.php';
 		require_once WORLDSTAR_PRO_PLUGIN_DIR . '/includes/modules/class-footer-widgets.php';

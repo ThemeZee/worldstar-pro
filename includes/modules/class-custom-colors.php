@@ -56,10 +56,15 @@ class WorldStar_Pro_Custom_Colors {
 		if ( $theme_options['top_navi_color'] !== $default_options['top_navi_color'] || $is_customize_preview ) {
 
 			$custom_css .= '
-				/* Primary Navigation Color Setting */
-				.header-bar-wrap,
+				/* Top Navigation Color Setting */
+				.top-navigation-menu a:hover,
+				.top-navigation-menu a:active,
+				.top-navigation-toggle:hover:after,
+				.top-navigation-menu .submenu-dropdown-toggle:hover:before {
+					color: ' . $theme_options['top_navi_color'] . ';
+				}
 				.top-navigation-menu ul {
-					background: '. $theme_options['top_navi_color'] .';
+					background: ' . $theme_options['top_navi_color'] . ';
 				}
 				';
 
@@ -69,11 +74,10 @@ class WorldStar_Pro_Custom_Colors {
 		if ( $theme_options['navi_primary_color'] !== $default_options['navi_primary_color'] || $is_customize_preview ) {
 
 			$custom_css .= '
-				/* Primary Navigation Color Setting */
-				.main-navigation-menu a:hover,
-				.main-navigation-menu a:active,
-				.main-navigation-menu li.current-menu-item > a {
-					background: '. $theme_options['navi_primary_color'] .';
+				/* Main Navigation Color Setting */
+				.primary-navigation-wrap,
+				.main-navigation-toggle {
+					background: ' . $theme_options['navi_primary_color'] . ';
 				}
 				';
 
@@ -85,10 +89,10 @@ class WorldStar_Pro_Custom_Colors {
 			$custom_css .= '
 
 				/* Secondary Navigation Color Setting */
-				.primary-navigation-wrap,
-				.main-navigation-toggle,
-				.main-navigation-menu ul {
-					background: '. $theme_options['navi_secondary_color'] .';
+				.main-navigation-menu ul,
+				.main-navigation-toggle:hover,
+				.main-navigation-toggle:active {
+					background: ' . $theme_options['navi_secondary_color'] . ';
 				}
 				';
 
@@ -99,65 +103,39 @@ class WorldStar_Pro_Custom_Colors {
 
 			$custom_css .= '
 				/* Content Primary Color Setting */
-				a,
-				a:link,
-				a:visited,
 				.site-title,
 				.site-title a:link,
-				.site-title a:visited {
-					color: '. $theme_options['content_primary_color'] .';
+				.site-title a:visited,
+				.page-title,
+				.entry-title,
+				.entry-title a:link,
+				.entry-title a:visited {
+					color: ' . $theme_options['content_primary_color'] . ';
 				}
 
-				a:hover,
-				a:focus,
-				a:active,
 				.site-title a:hover,
-				.site-title a:active {
-				    color: #252525;
-				}
-
-				button,
-				input[type="button"],
-				input[type="reset"],
-				input[type="submit"],
-				.more-link,
-				.entry-tags .meta-tags a,
-				.widget_tag_cloud .tagcloud a,
-				.post-pagination .current,
-				.infinite-scroll #infinite-handle span,
-				.tzwb-social-icons .social-icons-menu li a,
-				.post-slider-controls .zeeflex-direction-nav a {
-				    color: #fff;
-					background: '. $theme_options['content_primary_color'] .';
+				.site-title a:active,
+				.entry-title a:hover,
+				.entry-title a:active {
+					color: #33bbdd;
 				}
 
 				button:hover,
 				input[type="button"]:hover,
 				input[type="reset"]:hover,
 				input[type="submit"]:hover,
-				button:focus,
-				input[type="button"]:focus,
-				input[type="reset"]:focus,
-				input[type="submit"]:focus,
-				button:active,
-				input[type="button"]:active,
-				input[type="reset"]:active,
-				input[type="submit"]:active,
 				.more-link:hover,
-				.more-link:focus,
 				.more-link:active,
-				.entry-tags .meta-tags a:hover,
-				.entry-tags .meta-tags a:focus,
-				.entry-tags .meta-tags a:active,
+				.entry-categories .meta-category a:hover,
+				.entry-categories .meta-category a:active,
 				.widget_tag_cloud .tagcloud a:hover,
-				.widget_tag_cloud .tagcloud a:focus,
 				.widget_tag_cloud .tagcloud a:active,
+				.entry-tags .meta-tags a:hover,
+				.entry-tags .meta-tags a:active,
+				.pagination a,
 				.infinite-scroll #infinite-handle span:hover,
-				.infinite-scroll #infinite-handle span:active,
-				.tzwb-social-icons .social-icons-menu li a:hover,
-				.tzwb-social-icons .social-icons-menu li a:focus,
-				.tzwb-social-icons .social-icons-menu li a:active {
-				    background: #252525;
+				.footer-social-icons .social-icons-menu li a:hover {
+					background: ' . $theme_options['content_primary_color'] . ';
 				}
 				';
 
@@ -168,65 +146,54 @@ class WorldStar_Pro_Custom_Colors {
 
 			$custom_css .= '
 				/* Content Secondary Color Setting */
-				a:hover,
-				a:focus,
-				a:active,
+				a,
+				a:link,
+				a:visited,
 				.site-title a:hover,
 				.site-title a:active,
-				.page-title,
-				.entry-title,
-				.entry-title a:link,
-				.entry-title a:visited {
-					color: '. $theme_options['content_secondary_color'] .';
-				}
-
 				.entry-title a:hover,
 				.entry-title a:active {
-				    color: #1585b5;
+					color: ' . $theme_options['content_secondary_color'] . ';
+				}
+
+				a:hover,
+				a:focus,
+				a:active {
+					color: #222;
+				}
+
+				button,
+				input[type="button"],
+				input[type="reset"],
+				input[type="submit"],
+				.more-link:link,
+				.more-link:visited,
+				.entry-categories .meta-category a,
+				.widget_tag_cloud .tagcloud a,
+				.entry-tags .meta-tags a,
+				.pagination a:hover,
+				.pagination .current,
+				.infinite-scroll #infinite-handle span,
+				.footer-social-icons .social-icons-menu li a {
+					background: ' . $theme_options['content_secondary_color'] . ';
 				}
 
 				button:hover,
 				input[type="button"]:hover,
 				input[type="reset"]:hover,
 				input[type="submit"]:hover,
-				button:focus,
-				input[type="button"]:focus,
-				input[type="reset"]:focus,
-				input[type="submit"]:focus,
-				button:active,
-				input[type="button"]:active,
-				input[type="reset"]:active,
-				input[type="submit"]:active,
 				.more-link:hover,
-				.more-link:focus,
 				.more-link:active,
-				.entry-tags .meta-tags a:hover,
-				.entry-tags .meta-tags a:focus,
-				.entry-tags .meta-tags a:active,
+				.entry-categories .meta-category a:hover,
+				.entry-categories .meta-category a:active,
 				.widget_tag_cloud .tagcloud a:hover,
-				.widget_tag_cloud .tagcloud a:focus,
 				.widget_tag_cloud .tagcloud a:active,
-				.post-pagination a:link,
-				.post-pagination a:visited,
+				.entry-tags .meta-tags a:hover,
+				.entry-tags .meta-tags a:active,
+				.pagination a,
 				.infinite-scroll #infinite-handle span:hover,
-				.infinite-scroll #infinite-handle span:active,
-				.tzwb-tabbed-content .tzwb-tabnavi li a,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:link,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:visited,
-				.tzwb-social-icons .social-icons-menu li a:hover,
-				.tzwb-social-icons .social-icons-menu li a:focus,
-				.tzwb-social-icons .social-icons-menu li a:active,
-				.post-slider-controls .zeeflex-direction-nav a:hover,
-				.post-slider-controls .zeeflex-direction-nav a:active {
-					background: '. $theme_options['content_secondary_color'] .';
-				}
-
-				.post-pagination a:hover,
-				.post-pagination a:active,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:hover,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:active,
-				.tzwb-tabbed-content .tzwb-tabnavi li a.current-tab {
-				    background: #1585b5;
+				.footer-social-icons .social-icons-menu li a:hover {
+					background: #222;
 				}
 				';
 
@@ -237,17 +204,22 @@ class WorldStar_Pro_Custom_Colors {
 
 			$custom_css .= '
 				/* Content Primary Hover Color Setting */
-				.entry-title a:hover,
-				.entry-title a:active {
-					color: '. $theme_options['content_primary_color'] .';
-				}
-
-				.post-pagination a:hover,
-				.post-pagination a:active,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:hover,
-				.tzwb-tabbed-content .tzwb-tabnavi li a:active,
-				.tzwb-tabbed-content .tzwb-tabnavi li a.current-tab {
-					background: '. $theme_options['content_primary_color'] .';
+				button:hover,
+				input[type="button"]:hover,
+				input[type="reset"]:hover,
+				input[type="submit"]:hover,
+				.more-link:hover,
+				.more-link:active,
+				.entry-categories .meta-category a:hover,
+				.entry-categories .meta-category a:active,
+				.widget_tag_cloud .tagcloud a:hover,
+				.widget_tag_cloud .tagcloud a:active,
+				.entry-tags .meta-tags a:hover,
+				.entry-tags .meta-tags a:active,
+				.pagination a,
+				.infinite-scroll #infinite-handle span:hover,
+				.footer-social-icons .social-icons-menu li a:hover {
+					background: ' . $theme_options['content_primary_color'] . ';
 				}
 				';
 
@@ -258,9 +230,15 @@ class WorldStar_Pro_Custom_Colors {
 
 			$custom_css .= '
 				/* Widget Title Color Setting */
-				.widget-header,
-				.page-header {
-					background: '. $theme_options['widget_title_color'] .';
+				.page-header .archive-title,
+				.comments-header .comments-title,
+				.comment-reply-title span,
+				.widget-title,
+				.widget-title a:link,
+				.widget-title a:visited,
+				.widget-title a:hover,
+				.widget-title a:active  {
+					color: ' . $theme_options['widget_title_color'] . ';
 				}
 				';
 
@@ -271,10 +249,9 @@ class WorldStar_Pro_Custom_Colors {
 
 			$custom_css .= '
 				/* Footer Color Setting */
-				.site-footer-wrap,
-				.footer-navigation-wrap,
+				.footer-wrap,
 				.footer-widgets-background {
-					background: '. $theme_options['footer_color'] .';
+					background: ' . $theme_options['footer_color'] . ';
 				}
 				';
 
@@ -326,7 +303,7 @@ class WorldStar_Pro_Custom_Colors {
 		$wp_customize->add_setting( 'worldstar_theme_options[navi_primary_color]', array(
 			'default'           => $default_options['navi_primary_color'],
 			'type'           	=> 'option',
-			'transport'         => $transport,
+			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
 			)
 		);
@@ -343,7 +320,7 @@ class WorldStar_Pro_Custom_Colors {
 		$wp_customize->add_setting( 'worldstar_theme_options[navi_secondary_color]', array(
 			'default'           => $default_options['navi_secondary_color'],
 			'type'           	=> 'option',
-			'transport'         => $transport,
+			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
 			)
 		);
