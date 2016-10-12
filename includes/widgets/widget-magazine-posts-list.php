@@ -45,9 +45,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			'title'				=> '',
 			'category'			=> 0,
 			'number'			=> 3,
-			'meta_date'			=> true,
-			'meta_author'		=> true,
-			'meta_category'		=> true,
 		);
 
 		return $defaults;
@@ -145,26 +142,32 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			// Display Posts.
 			while ( $posts_query->have_posts() ) : $posts_query->the_post(); ?>
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'clearfix' ); ?>>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'large-post clearfix' ); ?>>
 
-					<a href="<?php esc_url( the_permalink() ); ?>" rel="bookmark">
-						<?php the_post_thumbnail( 'worldstar-thumbnail-archive' ); ?>
-					</a>
+					<div class="post-image">
 
-					<header class="entry-header">
+						<?php worldstar_post_image(); ?>
 
-						<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+						<?php worldstar_entry_categories(); ?>
 
-						<?php $this->entry_meta( $settings ); ?>
+					</div>
 
-					</header><!-- .entry-header -->
+					<div class="post-content">
 
-					<div class="entry-content clearfix">
+						<header class="entry-header">
 
-						<?php the_excerpt(); ?>
-						<?php worldstar_more_link(); ?>
+							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-					</div><!-- .entry-content -->
+							<?php worldstar_entry_meta(); ?>
+
+						</header><!-- .entry-header -->
+
+						<div class="entry-content">
+							<?php the_excerpt(); ?>
+							<?php worldstar_more_link(); ?>
+						</div><!-- .entry-content -->
+
+					</div>
 
 				</article>
 
@@ -180,42 +183,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		wp_reset_postdata();
 
 	}
-
-	/**
-	 * Displays Entry Meta of Posts
-	 *
-	 * @param array $settings / Settings for this widget instance.
-	 */
-	function entry_meta( $settings ) {
-
-		$postmeta = '';
-
-		if ( true === $settings['meta_date'] ) {
-
-			$postmeta .= worldstar_meta_date();
-
-		}
-
-		if ( true === $settings['meta_author'] ) {
-
-			$postmeta .= worldstar_meta_author();
-
-		}
-
-		if ( true === $settings['meta_category'] ) {
-
-			$postmeta .= worldstar_meta_category();
-
-		}
-
-		if ( $postmeta ) {
-
-			echo '<div class="entry-meta">' . $postmeta . '</div>';
-
-		}
-
-	} // entry_meta()
-
 
 	/**
 	 * Displays Widget Title
@@ -239,7 +206,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 				// Display Widget Title with link to category archive.
 				echo '<div class="widget-header">';
-				echo '<h1 class="widget-title"><a class="category-archive-link" href="'. $link_url .'" title="'. $link_title . '">'. $widget_title . '</a></h1>';
+				echo '<h1 class="widget-title"><a class="category-archive-link" href="' . $link_url . '" title="' . $link_title . '">' . $widget_title . '</a></h1>';
 				echo '</div>';
 
 			else :
@@ -267,9 +234,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['category'] = (int) $new_instance['category'];
 		$instance['number'] = (int) $new_instance['number'];
-		$instance['meta_date'] = ! empty( $new_instance['meta_date'] );
-		$instance['meta_author'] = ! empty( $new_instance['meta_author'] );
-		$instance['meta_category'] = ! empty( $new_instance['meta_category'] );
 
 		$this->delete_widget_cache();
 
@@ -311,27 +275,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of posts:', 'worldstar-pro' ); ?>
 				<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $settings['number']; ?>" size="3" />
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_date' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_date'] ); ?> id="<?php echo $this->get_field_id( 'meta_date' ); ?>" name="<?php echo $this->get_field_name( 'meta_date' ); ?>" />
-				<?php esc_html_e( 'Display post date', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_author' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_author'] ); ?> id="<?php echo $this->get_field_id( 'meta_author' ); ?>" name="<?php echo $this->get_field_name( 'meta_author' ); ?>" />
-				<?php esc_html_e( 'Display post author', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_category' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_category'] ); ?> id="<?php echo $this->get_field_id( 'meta_category' ); ?>" name="<?php echo $this->get_field_name( 'meta_category' ); ?>" />
-				<?php esc_html_e( 'Display post category', 'worldstar-pro' ); ?>
 			</label>
 		</p>
 

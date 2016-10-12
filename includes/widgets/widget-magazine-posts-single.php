@@ -44,9 +44,6 @@ class WorldStar_Pro_Magazine_Posts_Single_Widget extends WP_Widget {
 		$defaults = array(
 			'title'				=> '',
 			'category'			=> 0,
-			'meta_date'			=> true,
-			'meta_author'		=> true,
-			'meta_category'		=> true,
 		);
 
 		return $defaults;
@@ -138,41 +135,36 @@ class WorldStar_Pro_Magazine_Posts_Single_Widget extends WP_Widget {
 		// Check if there are posts.
 		if ( $posts_query->have_posts() ) :
 
-			// Limit the number of words for the excerpt.
-			add_filter( 'excerpt_length', 'worldstar_magazine_posts_excerpt_length' );
-
 			// Display Posts.
 			while ( $posts_query->have_posts() ) : $posts_query->the_post(); ?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-					<a href="<?php esc_url( the_permalink() ); ?>" rel="bookmark">
-						<?php the_post_thumbnail(); ?>
-					</a>
+					<div class="post-image">
+
+						<?php worldstar_post_image(); ?>
+
+						<?php worldstar_entry_categories(); ?>
+
+					</div>
 
 					<header class="entry-header">
 
-						<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+						<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-						<?php $this->entry_meta( $settings ); ?>
+						<?php worldstar_entry_meta(); ?>
 
 					</header><!-- .entry-header -->
 
-					<div class="entry-content clearfix">
-
+					<div class="entry-content">
 						<?php the_excerpt(); ?>
 						<?php worldstar_more_link(); ?>
-
 					</div><!-- .entry-content -->
 
 				</article>
 
 			<?php
 			endwhile;
-
-			// Remove excerpt filter.
-			remove_filter( 'excerpt_length', 'worldstar_magazine_posts_excerpt_length' );
-
 		endif;
 
 		// Reset Postdata.
@@ -238,7 +230,7 @@ class WorldStar_Pro_Magazine_Posts_Single_Widget extends WP_Widget {
 
 				// Display Widget Title with link to category archive.
 				echo '<div class="widget-header">';
-				echo '<h1 class="widget-title"><a class="category-archive-link" href="'. $link_url .'" title="'. $link_title . '">'. $widget_title . '</a></h1>';
+				echo '<h1 class="widget-title"><a class="category-archive-link" href="' . $link_url . '" title="' . $link_title . '">' . $widget_title . '</a></h1>';
 				echo '</div>';
 
 			else :
@@ -265,9 +257,6 @@ class WorldStar_Pro_Magazine_Posts_Single_Widget extends WP_Widget {
 		$instance = $old_instance;
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['category'] = (int) $new_instance['category'];
-		$instance['meta_date'] = ! empty( $new_instance['meta_date'] );
-		$instance['meta_author'] = ! empty( $new_instance['meta_author'] );
-		$instance['meta_category'] = ! empty( $new_instance['meta_category'] );
 
 		$this->delete_widget_cache();
 
@@ -304,27 +293,6 @@ class WorldStar_Pro_Magazine_Posts_Single_Widget extends WP_Widget {
 				);
 				wp_dropdown_categories( $args );
 			?>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_date' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_date'] ); ?> id="<?php echo $this->get_field_id( 'meta_date' ); ?>" name="<?php echo $this->get_field_name( 'meta_date' ); ?>" />
-				<?php esc_html_e( 'Display post date', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_author' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_author'] ); ?> id="<?php echo $this->get_field_id( 'meta_author' ); ?>" name="<?php echo $this->get_field_name( 'meta_author' ); ?>" />
-				<?php esc_html_e( 'Display post author', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_category' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_category'] ); ?> id="<?php echo $this->get_field_id( 'meta_category' ); ?>" name="<?php echo $this->get_field_name( 'meta_category' ); ?>" />
-				<?php esc_html_e( 'Display post category', 'worldstar-pro' ); ?>
-			</label>
 		</p>
 
 	<?php

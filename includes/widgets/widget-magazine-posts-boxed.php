@@ -45,8 +45,6 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 			'title'				=> '',
 			'category'			=> 0,
 			'layout'			=> 'horizontal',
-			'meta_date'			=> true,
-			'meta_author'		=> false,
 		);
 
 		return $defaults;
@@ -180,15 +178,21 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'large-post clearfix' ); ?>>
 
-						<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_post_thumbnail( 'worldstar-thumbnail-large' ); ?></a>
+						<div class="post-image">
+
+							<?php worldstar_post_image(); ?>
+
+							<?php worldstar_entry_categories(); ?>
+
+						</div>
 
 						<div class="post-content">
 
 							<header class="entry-header">
 
-								<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+								<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-								<?php $this->entry_meta( $settings ); ?>
+								<?php worldstar_entry_meta(); ?>
 
 							</header><!-- .entry-header -->
 
@@ -215,7 +219,7 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 							<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-							<?php $this->entry_meta( $settings ); ?>
+							<?php if ( function_exists( 'worldstar_magazine_widgets_entry_meta' ) ) { worldstar_magazine_widgets_entry_meta(); } ?>
 
 						</div>
 
@@ -239,7 +243,6 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 	} // magazine_posts_horizontal()
 
-
 	/**
 	 * Displays Magazine Posts in Vertical Layout
 	 *
@@ -251,7 +254,7 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 		// Get latest posts from database.
 		$query_arguments = array(
-			'posts_per_page' => 5,
+			'posts_per_page' => 6,
 			'ignore_sticky_posts' => true,
 			'cat' => (int) $settings['category'],
 		);
@@ -273,13 +276,19 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'large-post clearfix' ); ?>>
 
+						<div class="post-image">
+
+							<?php worldstar_post_image(); ?>
+
+							<?php worldstar_entry_categories(); ?>
+
+						</div>
+
 						<header class="entry-header">
 
-							<a href="<?php the_permalink() ?>" rel="bookmark"><?php the_post_thumbnail( 'worldstar-thumbnail-large' ); ?></a>
+							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-							<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
-
-							<?php $this->entry_meta( $settings ); ?>
+							<?php worldstar_entry_meta(); ?>
 
 						</header><!-- .entry-header -->
 
@@ -304,7 +313,7 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 							<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-							<?php $this->entry_meta( $settings ); ?>
+							<?php if ( function_exists( 'worldstar_magazine_widgets_entry_meta' ) ) { worldstar_magazine_widgets_entry_meta(); } ?>
 
 						</div>
 
@@ -328,37 +337,6 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 	} // magazine_posts_vertical()
 
-
-	/**
-	 * Displays Entry Meta of Posts
-	 *
-	 * @param array $settings / Settings for this widget instance.
-	 */
-	function entry_meta( $settings ) {
-
-		$postmeta = '';
-
-		if ( true === $settings['meta_date'] ) {
-
-			$postmeta .= worldstar_meta_date();
-
-		}
-
-		if ( true === $settings['meta_author'] ) {
-
-			$postmeta .= worldstar_meta_author();
-
-		}
-
-		if ( $postmeta ) {
-
-			echo '<div class="entry-meta">' . $postmeta . '</div>';
-
-		}
-
-	} // entry_meta()
-
-
 	/**
 	 * Displays Widget Title
 	 *
@@ -381,7 +359,7 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 
 				// Display Widget Title with link to category archive.
 				echo '<div class="widget-header">';
-				echo '<h1 class="widget-title"><a class="category-archive-link" href="'. $link_url .'" title="'. $link_title . '">'. $widget_title . '</a></h1>';
+				echo '<h1 class="widget-title"><a class="category-archive-link" href="' . $link_url . '" title="' . $link_title . '">' . $widget_title . '</a></h1>';
 				echo '</div>';
 
 			else :
@@ -394,7 +372,6 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 		endif;
 
 	} // widget_title()
-
 
 	/**
 	 * Update Widget Settings
@@ -409,9 +386,6 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['category'] = (int) $new_instance['category'];
 		$instance['layout'] = esc_attr( $new_instance['layout'] );
-		$instance['meta_date'] = ! empty( $new_instance['meta_date'] );
-		$instance['meta_author'] = ! empty( $new_instance['meta_author'] );
-
 		$this->delete_widget_cache();
 
 		return $instance;
@@ -457,23 +431,8 @@ class WorldStar_Pro_Magazine_Posts_Boxed_Widget extends WP_Widget {
 			</select>
 		</p>
 
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_date' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_date'] ); ?> id="<?php echo $this->get_field_id( 'meta_date' ); ?>" name="<?php echo $this->get_field_name( 'meta_date' ); ?>" />
-				<?php esc_html_e( 'Display post date', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'meta_author' ); ?>">
-				<input class="checkbox" type="checkbox" <?php checked( $settings['meta_author'] ); ?> id="<?php echo $this->get_field_id( 'meta_author' ); ?>" name="<?php echo $this->get_field_name( 'meta_author' ); ?>" />
-				<?php esc_html_e( 'Display post author', 'worldstar-pro' ); ?>
-			</label>
-		</p>
-
 	<?php
 	} // form()
-
 
 	/**
 	 * Delete Widget Cache
