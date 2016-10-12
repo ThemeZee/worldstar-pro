@@ -72,10 +72,10 @@ class WorldStar_Pro_Customizer {
 			'content_secondary_color'     => '#252525',
 			'widget_title_color'          => '#252525',
 			'footer_color'                => '#252525',
-			'text_font'                   => 'Oxygen',
-			'title_font'                  => 'Oxygen',
-			'navi_font'                   => 'Oxygen',
-			'widget_title_font'           => 'Oxygen',
+			'text_font'                   => 'Open Sans',
+			'title_font'                  => 'Oswald',
+			'navi_font'                   => 'Open Sans',
+			'widget_title_font'           => 'Oswald',
 			'available_fonts'             => 'favorites',
 		);
 

@@ -63,11 +63,10 @@ class WorldStar_Pro_Custom_Fonts {
 			$custom_css .= '
 				/* Base Font Setting */
 				body,
-				button,
 				input,
 				select,
 				textarea {
-					font-family: "'.esc_attr( $theme_options['text_font'] ).'";
+					font-family: "' . esc_attr( $theme_options['text_font'] ) . '";
 				}
 				';
 
@@ -80,8 +79,14 @@ class WorldStar_Pro_Custom_Fonts {
 				/* Headings Font Setting */
 				.site-title,
 				.page-title,
-				.entry-title {
-					font-family: "'.esc_attr( $theme_options['title_font'] ).'";
+				.entry-title,
+				.more-link,
+				.infinite-scroll #infinite-handle span,
+				button,
+				input[type="button"],
+				input[type="reset"],
+				input[type="submit"] {
+					font-family: "' . esc_attr( $theme_options['title_font'] ) . '";
 				}
 				';
 
@@ -92,8 +97,12 @@ class WorldStar_Pro_Custom_Fonts {
 
 			$custom_css .= '
 				/* Navigation Font Setting */
-				.main-navigation-menu a {
-					font-family: "'.esc_attr( $theme_options['navi_font'] ).'";
+				.main-navigation-menu a,
+				.main-navigation-toggle,
+				.header-bar-text,
+				.top-navigation-menu a,
+				.footer-navigation-menu a {
+					font-family: "' . esc_attr( $theme_options['navi_font'] ) . '";
 				}
 				';
 
@@ -108,7 +117,7 @@ class WorldStar_Pro_Custom_Fonts {
 				.comments-header .comments-title,
 				.comment-reply-title span,
 				.widget-title {
-					font-family: "'.esc_attr( $theme_options['widget_title_font'] ).'";
+					font-family: "' . esc_attr( $theme_options['widget_title_font'] ) . '";
 				}
 				';
 

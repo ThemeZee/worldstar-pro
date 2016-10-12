@@ -55,7 +55,7 @@
 			$( "head" ).append( googleFontSource );
 
 			// Set CSS.
-			$( 'body, button, input, select, textarea' )
+			$( 'body, input, select, textarea' )
 				.css( 'font-family', newval );
 
 		} );
@@ -76,7 +76,7 @@
 			$( "head" ).append( googleFontSource );
 
 			// Set CSS.
-			$( '.site-title, .page-title, .entry-title' )
+			$( '.site-title, .page-title, .entry-title, .more-link, .infinite-scroll #infinite-handle span, button, input[type="button"], input[type="reset"], input[type="submit"]' )
 				.css( 'font-family', newval );
 
 		} );
@@ -97,7 +97,7 @@
 			$( "head" ).append( googleFontSource );
 
 			// Set CSS.
-			$( '.main-navigation-menu a' )
+			$( '.main-navigation-menu a, .main-navigation-toggle, .header-bar-text, .top-navigation-menu a, .footer-navigation-menu a' )
 				.css( 'font-family', newval );
 
 		} );
