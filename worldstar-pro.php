@@ -65,7 +65,7 @@ class WorldStar_Pro {
 		define( 'WORLDSTAR_PRO_VERSION', '1.0' );
 
 		// Define Plugin Name.
-		define( 'WORLDSTAR_PRO_PRODUCT_ID', 73300 );
+		define( 'WORLDSTAR_PRO_PRODUCT_ID', 81120 );
 
 		// Define Update API URL.
 		define( 'WORLDSTAR_PRO_STORE_API_URL', 'https://themezee.com' );

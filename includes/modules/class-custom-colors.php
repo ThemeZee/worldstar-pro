@@ -119,24 +119,6 @@ class WorldStar_Pro_Custom_Colors {
 				.entry-title a:active {
 					color: #33bbdd;
 				}
-
-				button:hover,
-				input[type="button"]:hover,
-				input[type="reset"]:hover,
-				input[type="submit"]:hover,
-				.more-link:hover,
-				.more-link:active,
-				.entry-categories .meta-category a:hover,
-				.entry-categories .meta-category a:active,
-				.widget_tag_cloud .tagcloud a:hover,
-				.widget_tag_cloud .tagcloud a:active,
-				.entry-tags .meta-tags a:hover,
-				.entry-tags .meta-tags a:active,
-				.pagination a,
-				.infinite-scroll #infinite-handle span:hover,
-				.footer-social-icons .social-icons-menu li a:hover {
-					background: ' . $theme_options['content_primary_color'] . ';
-				}
 				';
 
 		}
@@ -174,7 +156,11 @@ class WorldStar_Pro_Custom_Colors {
 				.pagination a:hover,
 				.pagination .current,
 				.infinite-scroll #infinite-handle span,
-				.footer-social-icons .social-icons-menu li a {
+				.footer-social-icons .social-icons-menu li a,
+				.tzwb-tabbed-content .tzwb-tabnavi li a:hover,
+				.tzwb-tabbed-content .tzwb-tabnavi li a:active,
+				.tzwb-tabbed-content .tzwb-tabnavi li a.current-tab,
+				.tzwb-social-icons .social-icons-menu li a {
 					background: ' . $theme_options['content_secondary_color'] . ';
 				}
 
@@ -192,7 +178,8 @@ class WorldStar_Pro_Custom_Colors {
 				.entry-tags .meta-tags a:active,
 				.pagination a,
 				.infinite-scroll #infinite-handle span:hover,
-				.footer-social-icons .social-icons-menu li a:hover {
+				.footer-social-icons .social-icons-menu li a:hover,
+				.tzwb-social-icons .social-icons-menu li a:hover {
 					background: #222;
 				}
 				';
@@ -218,7 +205,9 @@ class WorldStar_Pro_Custom_Colors {
 				.entry-tags .meta-tags a:active,
 				.pagination a,
 				.infinite-scroll #infinite-handle span:hover,
-				.footer-social-icons .social-icons-menu li a:hover {
+				.footer-social-icons .social-icons-menu li a:hover,
+				.tzwb-tabbed-content .tzwb-tabnavi li a,
+				.tzwb-social-icons .social-icons-menu li a:hover {
 					background: ' . $theme_options['content_primary_color'] . ';
 				}
 				';
