@@ -294,7 +294,9 @@
 	box-sizing: border-box;
 }
 
-/* One Column Footer Widgets */
+/* One Column Footer Widgets
+* Using Sibling Count: http://andr3.net/blog/post/142
+*/
 .footer-widget-column:nth-child(1):nth-last-child(1) {
 	float: none;
 	width: 100%;
