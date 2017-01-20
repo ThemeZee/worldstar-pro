@@ -225,7 +225,7 @@ class WorldStar_Pro {
 
 		if ( $options->get( 'license_key' ) <> '' ) :
 
-			$license_key = $options->get( 'license_key' );
+			$license_key = trim( $options->get( 'license_key' ) );
 
 			// Setup the updater.
 			$worldstar_pro_updater = new WorldStar_Pro_Plugin_Updater( WORLDSTAR_PRO_STORE_API_URL, __FILE__, array(
