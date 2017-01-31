@@ -42,40 +42,46 @@ class WorldStar_Pro_Header_Bar {
 		// Get Theme Options from Database.
 		$theme_options = WorldStar_Pro_Customizer::get_theme_options();
 
-		echo '<div id="header-bar" class="header-bar container clearfix">';
+		// Check if there are menus.
+		if ( '' !== $theme_options['header_bar_text'] or has_nav_menu( 'secondary' ) ) {
 
-		// Check if there is header bar text.
-		if ( '' !== $theme_options['header_bar_text'] ) {
+			echo '<div id="header-top" class="header-bar-wrap">';
 
-			echo '<div id="header-bar-text" class="header-bar-text clearfix">';
+			echo '<div id="header-bar" class="header-bar container clearfix">';
 
-			echo wp_kses_post( $theme_options['header_bar_text'] );
+			// Check if there is header bar text.
+			if ( '' !== $theme_options['header_bar_text'] ) {
+
+				echo '<div id="header-bar-text" class="header-bar-text clearfix">';
+
+				echo wp_kses_post( $theme_options['header_bar_text'] );
+
+				echo '</div>';
+
+			}
+
+			// Check if there is a top navigation menu.
+			if ( has_nav_menu( 'secondary' ) ) {
+
+				echo '<nav id="top-navigation" class="secondary-navigation navigation clearfix" role="navigation">';
+
+				// Display Top Navigation.
+				wp_nav_menu( array(
+					'theme_location' => 'secondary',
+					'container' => false,
+					'menu_class' => 'top-navigation-menu',
+					'echo' => true,
+					'fallback_cb' => '',
+					)
+				);
+
+				echo '</nav>';
+
+			}
 
 			echo '</div>';
-
+			echo '</div>';
 		}
-
-		// Check if there is a top navigation menu.
-		if ( has_nav_menu( 'secondary' ) ) {
-
-			echo '<nav id="top-navigation" class="secondary-navigation navigation clearfix" role="navigation">';
-
-			// Display Top Navigation.
-			wp_nav_menu( array(
-				'theme_location' => 'secondary',
-				'container' => false,
-				'menu_class' => 'top-navigation-menu',
-				'echo' => true,
-				'fallback_cb' => '',
-				)
-			);
-
-			echo '</nav>';
-
-		}
-
-		echo '</div>';
-
 	}
 
 	/**

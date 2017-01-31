@@ -2,6 +2,11 @@
 WorldStar Pro Changelog
 ===================================
 
+Version 1.0.3
+-----------------------------------
+* changed HTML markup of header bar
+* updated EDD Plugin Updater class
+
 Version 1.0.2
 -----------------------------------
 * changed Google Font URL to https in Customizer
