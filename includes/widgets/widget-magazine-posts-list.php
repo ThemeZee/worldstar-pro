@@ -1,6 +1,6 @@
 <?php
 /**
- * Magazine Posts List Widget
+ * Magazine List Widget
  *
  * Display the latest posts from a selected category in a list layout.
  * Intented to be used in the Magazine Homepage widget area to built a magazine layouted page.
@@ -21,19 +21,13 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		// Setup Widget.
 		parent::__construct(
 			'worldstar-magazine-posts-list', // ID.
-			sprintf( esc_html__( 'Magazine Posts: List (%s)', 'worldstar-pro' ), 'WorldStar Pro' ), // Name.
+			esc_html__( 'Magazine (List)', 'worldstar-pro' ), // Name.
 			array(
-				'classname' => 'worldstar_magazine_posts_list',
+				'classname' => 'worldstar-magazine-list-widget',
 				'description' => esc_html__( 'Displays your posts from a selected category in a simple list layout. Please use this widget ONLY in the Magazine Homepage widget area.', 'worldstar-pro' ),
 				'customize_selective_refresh' => true,
 			) // Args.
 		);
-
-		// Delete Widget Cache on certain actions.
-		add_action( 'save_post', array( $this, 'delete_widget_cache' ) );
-		add_action( 'deleted_post', array( $this, 'delete_widget_cache' ) );
-		add_action( 'switch_theme', array( $this, 'delete_widget_cache' ) );
-
 	}
 
 	/**
@@ -42,13 +36,12 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 	private function default_settings() {
 
 		$defaults = array(
-			'title'				=> '',
-			'category'			=> 0,
-			'number'			=> 3,
+			'title'    => '',
+			'category' => 0,
+			'number'   => 3,
 		);
 
 		return $defaults;
-
 	}
 
 	/**
@@ -61,22 +54,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 	 */
 	function widget( $args, $instance ) {
 
-		$cache = array();
-
-		// Get Widget Object Cache.
-		if ( ! $this->is_preview() ) {
-			$cache = wp_cache_get( 'widget_worldstar_magazine_posts_list', 'widget' );
-		}
-		if ( ! is_array( $cache ) ) {
-			$cache = array();
-		}
-
-		// Display Widget from Cache if exists.
-		if ( isset( $cache[ $this->id ] ) ) {
-			echo $cache[ $this->id ];
-			return;
-		}
-
 		// Start Output Buffering.
 		ob_start();
 
@@ -86,6 +63,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		// Output.
 		echo $args['before_widget'];
 		?>
+
 		<div class="widget-magazine-posts-list widget-magazine-posts clearfix">
 
 			<?php // Display Title.
@@ -102,14 +80,8 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		<?php
 		echo $args['after_widget'];
 
-		// Set Cache.
-		if ( ! $this->is_preview() ) {
-			$cache[ $this->id ] = ob_get_flush();
-			wp_cache_set( 'widget_worldstar_magazine_posts_list', $cache, 'widget' );
-		} else {
-			ob_end_flush();
-		}
-
+		// End Output Buffering.
+		ob_end_flush();
 	}
 
 	/**
@@ -124,14 +96,15 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 	 */
 	function render( $settings ) {
 
-		// Get latest posts from database.
+		// Get cached post ids.
+		$post_ids = worldstar_get_magazine_post_ids( $this->id, $settings['category'], $settings['number'] );
+
+		// Fetch posts from database.
 		$query_arguments = array(
-			'posts_per_page' => (int) $settings['number'],
-			'ignore_sticky_posts' => true,
-			'cat' => (int) $settings['category'],
+			'post__in'            => $post_ids,
+			'no_found_rows'       => true,
 		);
 		$posts_query = new WP_Query( $query_arguments );
-		$i = 0;
 
 		// Check if there are posts.
 		if ( $posts_query->have_posts() ) :
@@ -140,38 +113,10 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			add_filter( 'excerpt_length', 'worldstar_magazine_posts_excerpt_length' );
 
 			// Display Posts.
-			while ( $posts_query->have_posts() ) : $posts_query->the_post(); ?>
+			while ( $posts_query->have_posts() ) : $posts_query->the_post();
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'large-post clearfix' ); ?>>
+				get_template_part( 'template-parts/widgets/magazine-large-post', 'list' );
 
-					<div class="post-image">
-
-						<?php worldstar_post_image(); ?>
-
-						<?php worldstar_entry_categories(); ?>
-
-					</div>
-
-					<div class="post-content">
-
-						<header class="entry-header">
-
-							<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-
-							<?php worldstar_entry_meta(); ?>
-
-						</header><!-- .entry-header -->
-
-						<div class="entry-content">
-							<?php the_excerpt(); ?>
-							<?php worldstar_more_link(); ?>
-						</div><!-- .entry-content -->
-
-					</div>
-
-				</article>
-
-			<?php
 			endwhile;
 
 			// Remove excerpt filter.
@@ -181,7 +126,6 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		// Reset Postdata.
 		wp_reset_postdata();
-
 	}
 
 	/**
@@ -206,7 +150,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 				// Display Widget Title with link to category archive.
 				echo '<div class="widget-header">';
-				echo '<h1 class="widget-title"><a class="category-archive-link" href="' . $link_url . '" title="' . $link_title . '">' . $widget_title . '</a></h1>';
+				echo '<h3 class="widget-title"><a class="category-archive-link" href="' . $link_url . '" title="' . $link_title . '">' . $widget_title . '</a></h3>';
 				echo '</div>';
 
 			else :
@@ -217,9 +161,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 			endif;
 
 		endif;
-
-	} // widget_title()
-
+	}
 
 	/**
 	 * Update Widget Settings
@@ -235,7 +177,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 		$instance['category'] = (int) $new_instance['category'];
 		$instance['number'] = (int) $new_instance['number'];
 
-		$this->delete_widget_cache();
+		worldstar_flush_magazine_post_ids();
 
 		return $instance;
 	}
@@ -253,7 +195,7 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'worldstar-pro' ); ?>
-				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $settings['title']; ?>" />
+				<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
 			</label>
 		</p>
 
@@ -274,20 +216,10 @@ class WorldStar_Pro_Magazine_Posts_List_Widget extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php esc_html_e( 'Number of posts:', 'worldstar-pro' ); ?>
-				<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo $settings['number']; ?>" size="3" />
+				<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo absint( $settings['number'] ); ?>" size="3" />
 			</label>
 		</p>
 
-	<?php
-	} // form()
-
-
-	/**
-	 * Delete Widget Cache
-	 */
-	public function delete_widget_cache() {
-
-		wp_cache_delete( 'widget_worldstar_magazine_posts_list', 'widget' );
-
+		<?php
 	}
 }
