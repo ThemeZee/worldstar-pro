@@ -175,7 +175,7 @@ class WorldStar_Pro_Footer_Line {
 			'settings' => 'worldstar_theme_options[footer_social_icons_text]',
 			'type'     => 'text',
 			'active_callback' => array( __CLASS__, 'has_social_menu' ),
-			'priority' => 10,
+			'priority' => 30,
 			)
 		);
 
@@ -192,7 +192,7 @@ class WorldStar_Pro_Footer_Line {
 			'section'  => 'worldstar_pro_section_footer',
 			'settings' => 'worldstar_theme_options[footer_text]',
 			'type'     => 'textarea',
-			'priority' => 20,
+			'priority' => 40,
 			)
 		);
 
@@ -209,7 +209,7 @@ class WorldStar_Pro_Footer_Line {
 			'section'  => 'worldstar_pro_section_footer',
 			'settings' => 'worldstar_theme_options[credit_link]',
 			'type'     => 'checkbox',
-			'priority' => 30,
+			'priority' => 50,
 			)
 		);
 

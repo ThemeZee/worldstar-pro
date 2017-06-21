@@ -8,8 +8,13 @@
 
 #customize-control-worldstar_theme_options-logo_spacing,
 #customize-control-worldstar_theme_options-header_spacing,
-#customize-control-worldstar_theme_options-footer_text {
+#customize-control-worldstar_theme_options-footer_text,
+#customize-control-worldstar_theme_options-footer_social_icons_text {
 	margin-top: 16px;
+}
+
+#customize-control-worldstar_theme_options-scroll_top_title {
+	margin-bottom: 0;
 }
 
 #customize-control-worldstar_theme_options-footer_text textarea {
