@@ -79,9 +79,13 @@
 			}
 			$( "head" ).append( googleFontSource );
 
+			// Set Font.
+			var systemFont = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+			var newFont = newval === 'SystemFontStack' ? systemFont : newval;
+
 			// Set CSS.
 			$( 'body, input, select, textarea' )
-				.css( 'font-family', newval );
+				.css( 'font-family', newFont );
 
 		} );
 	} );
@@ -100,9 +104,13 @@
 			}
 			$( "head" ).append( googleFontSource );
 
+			// Set Font.
+			var systemFont = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+			var newFont = newval === 'SystemFontStack' ? systemFont : newval;
+
 			// Set CSS.
 			$( '.site-title, .page-title, .entry-title, .more-link, .infinite-scroll #infinite-handle span, button, input[type="button"], input[type="reset"], input[type="submit"]' )
-				.css( 'font-family', newval );
+				.css( 'font-family', newFont );
 
 		} );
 	} );
@@ -121,9 +129,13 @@
 			}
 			$( "head" ).append( googleFontSource );
 
+			// Set Font.
+			var systemFont = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+			var newFont = newval === 'SystemFontStack' ? systemFont : newval;
+
 			// Set CSS.
 			$( '.main-navigation-menu a, .main-navigation-toggle, .header-bar-text, .top-navigation-menu a, .footer-navigation-menu a' )
-				.css( 'font-family', newval );
+				.css( 'font-family', newFont );
 
 		} );
 	} );
@@ -142,9 +154,13 @@
 			}
 			$( "head" ).append( googleFontSource );
 
+			// Set Font.
+			var systemFont = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
+			var newFont = newval === 'SystemFontStack' ? systemFont : newval;
+
 			// Set CSS.
 			$( '.page-header .archive-title, .comments-header .comments-title, .comment-reply-title span,.widget-title' )
-				.css( 'font-family', newval );
+				.css( 'font-family', newFont );
 
 		} );
 	} );
