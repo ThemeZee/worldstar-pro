@@ -8,7 +8,9 @@
  */
 
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Custom Colors Class
@@ -30,9 +32,11 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Custom Color CSS code to custom stylesheet output.
 		add_filter( 'worldstar_pro_custom_css_stylesheet', array( __CLASS__, 'custom_colors_css' ) );
 
+		// Add Custom Color CSS code to the Gutenberg editor.
+		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'custom_editor_colors_css' ) );
+
 		// Add Custom Color Settings.
 		add_action( 'customize_register', array( __CLASS__, 'color_settings' ) );
-
 	}
 
 	/**
@@ -66,8 +70,7 @@ class WorldStar_Pro_Custom_Colors {
 				.top-navigation-menu ul {
 					background: ' . $theme_options['top_navi_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		// Set Primary Navigation Color.
@@ -79,8 +82,7 @@ class WorldStar_Pro_Custom_Colors {
 				.main-navigation-toggle {
 					background: ' . $theme_options['navi_primary_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		// Set Secondary Navigation Color.
@@ -94,8 +96,7 @@ class WorldStar_Pro_Custom_Colors {
 				.main-navigation-toggle:active {
 					background: ' . $theme_options['navi_secondary_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		// Set Primary Content Color.
@@ -119,8 +120,7 @@ class WorldStar_Pro_Custom_Colors {
 				.entry-title a:active {
 					color: #33bbdd;
 				}
-				';
-
+			';
 		}
 
 		// Set Link Color.
@@ -134,7 +134,8 @@ class WorldStar_Pro_Custom_Colors {
 				.site-title a:hover,
 				.site-title a:active,
 				.entry-title a:hover,
-				.entry-title a:active {
+				.entry-title a:active,
+				.has-primary-color {
 					color: ' . $theme_options['content_secondary_color'] . ';
 				}
 
@@ -163,8 +164,9 @@ class WorldStar_Pro_Custom_Colors {
 				.tzwb-social-icons .social-icons-menu li a,
 				.scroll-to-top-button,
 				.scroll-to-top-button:focus,
-				.scroll-to-top-button:active {
-					background: ' . $theme_options['content_secondary_color'] . ';
+				.scroll-to-top-button:active,
+				.has-primary-background-color {
+					background-color: ' . $theme_options['content_secondary_color'] . ';
 				}
 
 				button:hover,
@@ -185,8 +187,7 @@ class WorldStar_Pro_Custom_Colors {
 				.tzwb-social-icons .social-icons-menu li a:hover {
 					background: #222;
 				}
-				';
-
+			';
 		}
 
 		// Set Primary Hover Content Color.
@@ -214,8 +215,7 @@ class WorldStar_Pro_Custom_Colors {
 				.scroll-to-top-button:hover {
 					background: ' . $theme_options['content_primary_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		// Set Widget Title Color.
@@ -233,8 +233,7 @@ class WorldStar_Pro_Custom_Colors {
 				.widget-title a:active  {
 					color: ' . $theme_options['widget_title_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		// Set Footer Color.
@@ -246,12 +245,60 @@ class WorldStar_Pro_Custom_Colors {
 				.footer-widgets-background {
 					background: ' . $theme_options['footer_color'] . ';
 				}
-				';
-
+			';
 		}
 
 		return $custom_css;
+	}
 
+	/**
+	 * Adds Color CSS styles in the Gutenberg Editor to override default colors
+	 *
+	 * @return void
+	 */
+	static function custom_editor_colors_css() {
+
+		// Get Theme Options from Database.
+		$theme_options = WorldStar_Pro_Customizer::get_theme_options();
+
+		// Get Default Fonts from settings.
+		$default_options = WorldStar_Pro_Customizer::get_default_options();
+
+		// Set Primary Color.
+		if ( $theme_options['content_secondary_color'] !== $default_options['content_secondary_color'] ) {
+
+			$custom_css = '
+				.has-primary-color,
+				.edit-post-visual-editor .editor-block-list__block a {
+					color: ' . $theme_options['content_secondary_color'] . ';
+				}
+				.has-primary-background-color {
+					background-color: ' . $theme_options['content_secondary_color'] . ';
+				}
+			';
+
+			wp_add_inline_style( 'worldstar-editor-styles', $custom_css );
+		}
+	}
+
+	/**
+	 * Change primary color in Gutenberg Editor.
+	 *
+	 * @return array $editor_settings
+	 */
+	static function change_primary_color( $color ) {
+		// Get Theme Options from Database.
+		$theme_options = WorldStar_Pro_Customizer::get_theme_options();
+
+		// Get Default Fonts from settings.
+		$default_options = WorldStar_Pro_Customizer::get_default_options();
+
+		// Set Primary Color.
+		if ( $theme_options['content_secondary_color'] !== $default_options['content_secondary_color'] ) {
+			$color = $theme_options['content_secondary_color'];
+		}
+
+		return $color;
 	}
 
 	/**
@@ -268,9 +315,8 @@ class WorldStar_Pro_Custom_Colors {
 		$wp_customize->add_section( 'worldstar_pro_section_colors', array(
 			'title'    => __( 'Theme Colors', 'worldstar-pro' ),
 			'priority' => 60,
-			'panel' => 'worldstar_options_panel',
-			)
-		);
+			'panel'    => 'worldstar_options_panel',
+		) );
 
 		// Get Default Colors from settings.
 		$default_options = WorldStar_Pro_Customizer::get_default_options();
@@ -278,16 +324,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Widget Title Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[top_navi_color]', array(
 			'default'           => $default_options['top_navi_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[top_navi_color]', array(
-				'label'      => _x( 'Top Navigation', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[top_navi_color]',
+				'label'    => _x( 'Top Navigation', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[top_navi_color]',
 				'priority' => 1,
 			)
 		) );
@@ -295,16 +340,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Navigation Primary Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[navi_primary_color]', array(
 			'default'           => $default_options['navi_primary_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[navi_primary_color]', array(
-				'label'      => _x( 'Navigation (primary)', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[navi_primary_color]',
+				'label'    => _x( 'Navigation (primary)', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[navi_primary_color]',
 				'priority' => 2,
 			)
 		) );
@@ -312,16 +356,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Navigation Secondary Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[navi_secondary_color]', array(
 			'default'           => $default_options['navi_secondary_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[navi_secondary_color]', array(
-				'label'      => _x( 'Navigation (secondary)', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[navi_secondary_color]',
+				'label'    => _x( 'Navigation (secondary)', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[navi_secondary_color]',
 				'priority' => 3,
 			)
 		) );
@@ -329,16 +372,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Post Primary Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[content_primary_color]', array(
 			'default'           => $default_options['content_primary_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => $transport,
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[content_primary_color]', array(
-				'label'      => _x( 'Content (primary)', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[content_primary_color]',
+				'label'    => _x( 'Content (primary)', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[content_primary_color]',
 				'priority' => 4,
 			)
 		) );
@@ -346,16 +388,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Link and Button Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[content_secondary_color]', array(
 			'default'           => $default_options['content_secondary_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => $transport,
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[content_secondary_color]', array(
-				'label'      => _x( 'Content (secondary)', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[content_secondary_color]',
+				'label'    => _x( 'Content (secondary)', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[content_secondary_color]',
 				'priority' => 5,
 			)
 		) );
@@ -363,16 +404,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Widget Title Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[widget_title_color]', array(
 			'default'           => $default_options['widget_title_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[widget_title_color]', array(
-				'label'      => _x( 'Widget Titles', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[widget_title_color]',
+				'label'    => _x( 'Widget Titles', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[widget_title_color]',
 				'priority' => 6,
 			)
 		) );
@@ -380,16 +420,15 @@ class WorldStar_Pro_Custom_Colors {
 		// Add Footer Color setting.
 		$wp_customize->add_setting( 'worldstar_theme_options[footer_color]', array(
 			'default'           => $default_options['footer_color'],
-			'type'           	=> 'option',
+			'type'              => 'option',
 			'transport'         => 'postMessage',
 			'sanitize_callback' => 'sanitize_hex_color',
-			)
-		);
+		) );
 		$wp_customize->add_control( new WP_Customize_Color_Control(
 			$wp_customize, 'worldstar_theme_options[footer_color]', array(
-				'label'      => _x( 'Footer', 'color setting', 'worldstar-pro' ),
-				'section'    => 'worldstar_pro_section_colors',
-				'settings'   => 'worldstar_theme_options[footer_color]',
+				'label'    => _x( 'Footer', 'color setting', 'worldstar-pro' ),
+				'section'  => 'worldstar_pro_section_colors',
+				'settings' => 'worldstar_theme_options[footer_color]',
 				'priority' => 7,
 			)
 		) );
@@ -398,8 +437,10 @@ class WorldStar_Pro_Custom_Colors {
 		if ( isset( $wp_customize->selective_refresh ) ) {
 
 			$wp_customize->selective_refresh->add_partial( 'worldstar_pro_custom_colors', array(
-				'selector' => '#worldstar-pro-custom-colors-css',
-				'settings' => array(
+				'selector'            => '#worldstar-pro-custom-colors-css',
+				'container_inclusive' => false,
+				'render_callback'     => array( __CLASS__, 'custom_colors_css' ),
+				'settings'            => array(
 					'worldstar_theme_options[top_navi_color]',
 					'worldstar_theme_options[navi_primary_color]',
 					'worldstar_theme_options[navi_secondary_color]',
@@ -408,14 +449,11 @@ class WorldStar_Pro_Custom_Colors {
 					'worldstar_theme_options[widget_title_color]',
 					'worldstar_theme_options[footer_color]',
 				),
-				'container_inclusive' => false,
-				'render_callback' => array( __CLASS__, 'custom_colors_css' ),
 			) );
-
 		}
-
 	}
 }
 
 // Run Class.
 add_action( 'init', array( 'WorldStar_Pro_Custom_Colors', 'setup' ) );
+add_filter( 'worldstar_primary_color', array( 'WorldStar_Pro_Custom_Colors', 'change_primary_color' ) );
