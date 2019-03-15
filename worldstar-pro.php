@@ -5,7 +5,7 @@ Plugin URI: http://themezee.com/addons/worldstar-pro/
 Description: Adds additional features like custom colors, google fonts, widget areas and footer copyright to the WorldStar theme.
 Author: ThemeZee
 Author URI: https://themezee.com/
-Version: 1.5
+Version: 1.5.1
 Text Domain: worldstar-pro
 Domain Path: /languages/
 License: GNU General Public License v2 or later
@@ -63,7 +63,7 @@ class WorldStar_Pro {
 		define( 'WORLDSTAR_PRO_NAME', 'WorldStar Pro' );
 
 		// Define Version Number.
-		define( 'WORLDSTAR_PRO_VERSION', '1.5' );
+		define( 'WORLDSTAR_PRO_VERSION', '1.5.1' );
 
 		// Define Plugin Name.
 		define( 'WORLDSTAR_PRO_PRODUCT_ID', 81120 );
